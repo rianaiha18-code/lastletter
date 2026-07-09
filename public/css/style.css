@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Arial", "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: #f5f7fa;
+  color: #1f2d3d;
+}
+
+/* 共通：スマホ幅 */
+.start-screen,
+.form-screen,
+.app-screen {
+  width: min(100%, 390px);
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #ffffff;
+}
+
+/* スタート画面 */
+.start-screen {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 48px;
+  margin-bottom: 14px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.start-screen h1,
+.app-logo {
+  font-size: 32px;
+  letter-spacing: 1px;
+  color: #0f3b63;
+}
+
+.catchcopy,
+.page-subtitle {
+  margin: 12px 0 26px;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* カード */
+.card,
+.info-box,
+.menu-card {
+  border: 1px solid #d7e0e8;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.card {
+  padding: 22px 20px;
+  margin-bottom: 18px;
+  border: 2px solid #183a59;
+  text-align: center;
+}
+
+.card h2 {
+  margin: 0 0 14px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* ボタン */
+button {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  margin: 14px auto 0;
+  padding: 13px 0;
+  border: none;
+  border-radius: 8px;
+  background: #0f6c91;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.green {
+  background: #215d1c;
+}
+
+button.danger {
+  background: #ffffff;
+  color: #d93025;
+  border: 1px solid #f0c7c4;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* フォーム系 */
+.form-screen {
+  padding: 28px 22px 40px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 22px;
+  color: #1f2d3d;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 23px;
+  color: #1f2d3d;
+  margin-bottom: 8px;
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+label {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d5dce3;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+}
+
+textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.small-text {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #666;
+}
+
+a {
+  color: #0f3b63;
+  font-weight: bold;
+}
+
+.text-link {
+  display: block;
+  text-align: center;
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.info-box {
+  margin-top: 22px;
+  padding: 18px;
+  background: #eef3f7;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* ログイン後アプリ画面 */
+.app-screen {
+  position: relative;
+  padding: 28px 18px 86px;
+}
+
+.app-logo {
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu-card {
+  display: block;
+  padding: 16px;
+  color: #1f2d3d;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.menu-card span {
+  display: inline-block;
+  margin-top: 3px;
+  color: #555;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.menu-card::after {
+  content: "›";
+  float: right;
+  color: #777;
+  font-size: 22px;
+}
+
+/* 5機能の色分け */
+.menu-card:nth-child(1) {
+  border-color: #b9cbe4;
+  background: #f7fbff;
+}
+
+.menu-card:nth-child(2) {
+  border-color: #e1c5df;
+  background: #fff8ff;
+}
+
+.menu-card:nth-child(3) {
+  border-color: #c9dfc2;
+  background: #fbfff9;
+}
+
+.menu-card:nth-child(4) {
+  border-color: #ead4b7;
+  background: #fffaf3;
+}
+
+.menu-card:nth-child(5) {
+  border-color: #b9dbe1;
+  background: #f7fdff;
+}
+
+.danger-text {
+  color: #d93025;
+}
+
+/* フッター */
+.footer-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(100%, 390px);
+  height: 64px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #e0e5ea;
+  background: #ffffff;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: #1f2d3d;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* スマホで余白が詰まりすぎないように */
+@media (max-width: 360px) {
+  .start-screen,
+  .form-screen,
+  .app-screen {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .start-screen h1,
+  .app-logo {
+    font-size: 28px;
+  }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新規登録</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="form-screen">
+    <a class="back-link" href="/">←</a>
+    <h1 class="page-title">新規登録</h1>
+    <p class="page-subtitle">アカウントを作成します</p>
+
+    <form class="form-card">
+      <label>お名前</label>
+      <input type="text" placeholder="例）山田 太郎">
+
+      <label>メールアドレス</label>
+      <input type="email" placeholder="例）sample@example.com">
+
+      <label>パスワード</label>
+      <input type="password" placeholder="8文字以上">
+
+      <label>パスワード確認</label>
+      <input type="password" placeholder="もう一度入力">
+
+      <p class="small-text">
+        登録することで、<a href="/info/terms.html">利用規約</a>と
+        <a href="/info/privacy.html">プライバシーポリシー</a>に同意したものとみなします。
+      </p>
+
+      <button type="button" onclick="location.href='/home/home.html'">登録する</button>
+    </form>
+
+    <a class="text-link" href="/auth/login.html">すでにアカウントをお持ちの方はこちら</a>
+  </main>
+</body>
+</html>
