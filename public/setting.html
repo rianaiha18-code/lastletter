@@ -1,30 +1,111 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>設定</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <main class="app-screen">
-    <h1 class="page-title">設定</h1>
 
-    <section class="menu-list">
-      <a class="menu-card">通知設定</a>
-      <a class="menu-card">テーマカラー</a>
-      <a class="menu-card">パスワード変更</a>
-      <a class="menu-card">メールアドレス変更</a>
-      <a href="/info/terms.html" class="menu-card">利用規約</a>
-      <a href="/info/privacy.html" class="menu-card">プライバシーポリシー</a>
-      <a class="menu-card danger-text">アカウント削除</a>
+<body>
+
+<main class="app-screen">
+
+    <header class="app-header">
+        <a href="/home/home.html" class="back-button">‹</a>
+        <h1>設定</h1>
+    </header>
+
+    <!-- テーマ -->
+
+    <section class="setting-card">
+
+        <h2>テーマカラー</h2>
+
+        <div class="theme-list">
+
+            <div class="theme-color beige active"></div>
+
+            <div class="theme-color blue"></div>
+
+            <div class="theme-color green"></div>
+
+            <div class="theme-color pink"></div>
+
+            <div class="theme-color purple"></div>
+
+        </div>
+
     </section>
 
-    <footer class="footer-nav">
-      <a href="/home/home.html">ホーム</a>
-      <a href="/mypage.html">マイページ</a>
-      <a href="/setting.html">設定</a>
+
+    <!-- 通知 -->
+
+    <section class="setting-menu">
+
+        <a href="#" class="menu-item">
+
+            <span>🔔 通知設定</span>
+
+            <span>›</span>
+
+        </a>
+
+        <a href="#" class="menu-item">
+
+            <span>🔒 パスワード変更</span>
+
+            <span>›</span>
+
+        </a>
+
+        <a href="#" class="menu-item">
+
+            <span>📧 メールアドレス変更</span>
+
+            <span>›</span>
+
+        </a>
+
+        <a href="#" class="menu-item">
+
+            <span>🗑 アカウント削除</span>
+
+            <span>›</span>
+
+        </a>
+
+    </section>
+
+    <footer class="bottom-nav">
+
+        <a href="/home/home.html">
+
+            <span>⌂</span>
+
+            <p>ホーム</p>
+
+        </a>
+
+        <a href="/mypage.html">
+
+            <span>👤</span>
+
+            <p>マイページ</p>
+
+        </a>
+
+        <a href="/setting.html" class="active">
+
+            <span>⚙</span>
+
+            <p>設定</p>
+
+        </a>
+
     </footer>
-  </main>
+
+</main>
+
 </body>
 </html>

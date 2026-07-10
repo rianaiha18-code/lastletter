@@ -1,28 +1,155 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>遺書・メッセージ</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遺書・メッセージ | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-  <main class="app-screen">
-    <a class="back-link" href="/home/home.html">←</a>
-    <h1 class="page-title">1 遺書・メッセージ</h1>
+    <main class="app-screen">
 
-    <section class="menu-list">
-      <a class="menu-card">全体へのメッセージ</a>
-      <a class="menu-card">相手ごとのメッセージ</a>
-      <a class="menu-card">合言葉設定</a>
-      <a class="menu-card">閲覧コード自動発行</a>
-    </section>
+        <header class="app-header">
+            <a href="/home/home.html" class="back-button">‹</a>
+            <h1>遺書・メッセージ</h1>
+        </header>
 
-    <footer class="footer-nav">
-      <a href="/home/home.html">ホーム</a>
-      <a href="/mypage.html">マイページ</a>
-      <a href="/setting.html">設定</a>
-    </footer>
-  </main>
+        <section class="message-section">
+
+            <h2>全体へのメッセージ</h2>
+            <textarea 
+    id="overallMessage"
+    class="large-textarea"
+    placeholder="家族や友人へ伝えたい想いを自由に書いてください。"></textarea>
+
+        </section>
+
+        <section class="message-section">
+
+            <div class="section-title-row">
+                <h2>相手ごとのメッセージ</h2>
+                <button type="button" class="add-button" id="addPersonButton">＋追加</button>
+            </div>
+          <!-- モーダル -->
+
+          <div id="personModal" class="modal">
+
+              <div class="modal-content">
+
+                  <h2>相手を追加</h2>
+
+                  <label>名前</label>
+                  <input type="text" id="modalName">
+
+                  <label>関係</label>
+                  <input type="text" id="modalRelation">
+
+                  <label>合言葉</label>
+                  <input 
+                      type="text" 
+                      id="modalKeyword"
+                      placeholder="例）家族旅行">
+                      
+                  <label>メッセージ</label>
+                  <textarea
+                      id="modalMessage"
+                      placeholder="この人へのメッセージを書きます"></textarea>
+                    <div class="modal-buttons">
+
+                        <button
+                            type="button"
+                            id="deletePersonButton"
+                            class="delete-button">
+
+                            削除
+
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancelButton"
+                            class="cancel-button">
+
+                            キャンセル
+
+                        </button>
+
+                        <button
+                            type="button"
+                            id="savePersonButton"
+                            class="main-button">
+
+                            保存
+
+                        </button>
+
+                    </div>
+
+              </div>
+
+          </div>
+          <div id="personList">
+
+              <div class="person-card">
+                  <div class="person-icon">😊</div>
+                  <div class="person-info">
+                      <p class="person-name">お母さん</p>
+                      <p class="person-relation">家族</p>
+                  </div>
+                  <span class="person-arrow">›</span>
+              </div>
+
+              <div class="person-card">
+                  <div class="person-icon">😊</div>
+                  <div class="person-info">
+                      <p class="person-name">お兄ちゃん</p>
+                      <p class="person-relation">家族</p>
+                  </div>
+                  <span class="person-arrow">›</span>
+              </div>
+
+              <div class="person-card">
+                  <div class="person-icon">😊</div>
+                  <div class="person-info">
+                      <p class="person-name">美咲</p>
+                      <p class="person-relation">親友</p>
+                  </div>
+                  <span class="person-arrow">›</span>
+              </div>
+
+          </div>
+            
+        </section>
+
+        <button
+            class="main-button"
+            id="saveButton">
+
+        保存する
+
+        </button>
+        <footer class="bottom-nav">
+            <a href="/home/home.html">
+                <span>⌂</span>
+                <p>ホーム</p>
+            </a>
+
+            <a href="/mypage.html">
+                <span>♙</span>
+                <p>マイページ</p>
+            </a>
+
+            <a href="/setting.html">
+                <span>⚙</span>
+                <p>設定</p>
+            </a>
+        </footer>
+
+      <div id="toast" class="toast">
+      ✔ 保存しました
+      </div>
+    </main>
+    <script src="/js/message.js"></script>
 </body>
 </html>

@@ -1,31 +1,118 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>葬儀リクエスト</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>葬儀リクエスト | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-  <main class="app-screen">
-    <a class="back-link" href="/home/home.html">←</a>
-    <h1 class="page-title">2 葬儀リクエスト</h1>
+    <main class="app-screen">
 
-    <section class="menu-list">
-      <a class="menu-card">葬儀について</a>
-      <a class="menu-card">遺影</a>
-      <a class="menu-card">棺に一緒に入れてほしい物</a>
-      <a class="menu-card">BGM</a>
-      <a class="menu-card">供養</a>
-      <a class="menu-card">遺品</a>
-      <a class="menu-card">家族へのお願い</a>
-    </section>
+        <header class="app-header">
+            <a href="/home/home.html" class="back-button">‹</a>
+            <h1>葬儀リクエスト</h1>
+        </header>
 
-    <footer class="footer-nav">
-      <a href="/home/home.html">ホーム</a>
-      <a href="/mypage.html">マイページ</a>
-      <a href="/setting.html">設定</a>
-    </footer>
-  </main>
+        <form class="funeral-form">
+
+            <section class="form-section">
+                <h2>葬儀について</h2>
+
+                <label>葬儀形式</label>
+                <select>
+                    <option>選択してください</option>
+                    <option>家族葬</option>
+                    <option>一般葬</option>
+                    <option>直葬</option>
+                    <option>お別れ会</option>
+                    <option>家族に任せる</option>
+                </select>
+
+                <label>葬儀規模</label>
+                <select>
+                    <option>選択してください</option>
+                    <option>家族のみ</option>
+                    <option>親しい友人まで</option>
+                    <option>大学・職場関係まで</option>
+                    <option>こだわりなし</option>
+                </select>
+            </section>
+
+            <section class="form-section">
+                <h2>遺影</h2>
+                <label>使ってほしい写真</label>
+                <input type="file">
+                <p class="help-text">※ 今は画面デザイン用です。画像保存は後で実装します。</p>
+            </section>
+
+            <section class="form-section">
+                <h2>棺に一緒に入れてほしい物</h2>
+                <textarea placeholder="例）手紙、写真、ぬいぐるみ、アクセサリーなど"></textarea>
+            </section>
+
+            <section class="form-section">
+                <h2>BGM</h2>
+
+                <label>曲名</label>
+                <input type="text" placeholder="例）好きな曲名">
+
+                <label>アーティスト名</label>
+                <input type="text" placeholder="例）アーティスト名">
+
+                <label>理由・思い出</label>
+                <textarea placeholder="この曲を選んだ理由や思い出を書いてください。"></textarea>
+            </section>
+
+            <section class="form-section">
+                <h2>供養方法・お骨の行き先</h2>
+                <select>
+                    <option>選択してください</option>
+                    <option>お墓</option>
+                    <option>納骨堂</option>
+                    <option>海洋散骨</option>
+                    <option>手元供養</option>
+                    <option>家族に任せる</option>
+                </select>
+            </section>
+
+            <section class="form-section">
+                <h2>部屋・遺品整理について</h2>
+
+                <label>残してほしい物</label>
+                <textarea placeholder="例）アルバム、手紙、思い出の品など"></textarea>
+
+                <label>処分してよい物</label>
+                <textarea placeholder="例）処分してよい物を書いてください"></textarea>
+
+                <label>家族へのお願い</label>
+                <textarea placeholder="遺品整理について家族へ伝えたいことを書いてください。"></textarea>
+            </section>
+
+            <button type="button" class="main-button">
+                保存する
+            </button>
+
+        </form>
+
+        <footer class="bottom-nav">
+            <a href="/home/home.html">
+                <span>⌂</span>
+                <p>ホーム</p>
+            </a>
+
+            <a href="/mypage.html">
+                <span>♙</span>
+                <p>マイページ</p>
+            </a>
+
+            <a href="/setting.html">
+                <span>⚙</span>
+                <p>設定</p>
+            </a>
+        </footer>
+
+    </main>
 </body>
 </html>

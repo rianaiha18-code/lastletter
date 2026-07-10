@@ -1,40 +1,154 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>デジタル資産・契約情報</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デジタル資産・契約情報 | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-  <main class="app-screen">
-    <a class="back-link" href="/home/home.html">←</a>
-    <h1 class="page-title">3 デジタル資産・契約情報</h1>
+    <main class="app-screen">
 
-    <section class="form-card">
-      <label>サブスク</label>
-      <textarea placeholder="サービス名、メールアドレス、支払方法、解約メモ"></textarea>
+        <header class="app-header">
+            <a href="/home/home.html" class="back-button">‹</a>
+            <h1>デジタル資産・契約情報</h1>
+        </header>
 
-      <label>銀行口座</label>
-      <textarea placeholder="銀行名、支店、口座種別、用途 ※暗証番号は保存しません"></textarea>
+        <form class="asset-form">
 
-      <label>クレジットカード</label>
-      <textarea placeholder="カード会社、引き落とし口座、メモ"></textarea>
+            <section class="form-section">
+                <div class="section-title-row">
+                    <h2>サブスク・会員サービス</h2>
+                    <button type="button" class="add-button">＋追加</button>
+                </div>
 
-      <label>SNS</label>
-      <textarea placeholder="Instagram、X、TikTok、Facebookなど"></textarea>
+                <label>サービス名</label>
+                <input type="text" placeholder="例）Netflix、Spotify">
 
-      <label>スマホ</label>
-      <textarea placeholder="キャリア、端末名、ロック解除のヒント"></textarea>
+                <label>登録メールアドレス</label>
+                <input type="email" placeholder="例）sample@example.com">
 
-      <button type="button">保存する</button>
-    </section>
+                <label>支払方法</label>
+                <input type="text" placeholder="例）クレジットカード">
 
-    <footer class="footer-nav">
-      <a href="/home/home.html">ホーム</a>
-      <a href="/mypage.html">マイページ</a>
-      <a href="/setting.html">設定</a>
-    </footer>
-  </main>
+                <label>解約メモ</label>
+                <textarea placeholder="解約方法や注意点を書いてください。"></textarea>
+            </section>
+
+            <section class="form-section">
+                <div class="section-title-row">
+                    <h2>銀行口座</h2>
+                    <button type="button" class="add-button">＋追加</button>
+                </div>
+
+                <label>銀行名</label>
+                <input type="text" placeholder="例）〇〇銀行">
+
+                <label>支店名</label>
+                <input type="text" placeholder="例）那覇支店">
+
+                <label>口座種別</label>
+                <select>
+                    <option>選択してください</option>
+                    <option>普通</option>
+                    <option>当座</option>
+                    <option>貯蓄</option>
+                </select>
+
+                <label>用途メモ</label>
+                <textarea placeholder="例）給与振込用、生活費用など"></textarea>
+
+                <p class="help-text">※ 暗証番号やパスワードは保存しないでください。</p>
+            </section>
+
+            <section class="form-section">
+                <div class="section-title-row">
+                    <h2>クレジットカード</h2>
+                    <button type="button" class="add-button">＋追加</button>
+                </div>
+
+                <label>カード会社</label>
+                <input type="text" placeholder="例）楽天カード、三井住友カード">
+
+                <label>引き落とし口座</label>
+                <input type="text" placeholder="例）〇〇銀行">
+
+                <label>利用中サービス</label>
+                <textarea placeholder="このカードで支払っているサービスを書いてください。"></textarea>
+            </section>
+
+            <section class="form-section">
+                <div class="section-title-row">
+                    <h2>SNS・デジタルアカウント</h2>
+                    <button type="button" class="add-button">＋追加</button>
+                </div>
+
+                <label>サービス名</label>
+                <select>
+                    <option>選択してください</option>
+                    <option>Instagram</option>
+                    <option>X</option>
+                    <option>TikTok</option>
+                    <option>Facebook</option>
+                    <option>Google</option>
+                    <option>Apple ID</option>
+                    <option>その他</option>
+                </select>
+
+                <label>アカウント名</label>
+                <input type="text" placeholder="例）@username">
+
+                <label>希望</label>
+                <select>
+                    <option>選択してください</option>
+                    <option>削除してほしい</option>
+                    <option>残してほしい</option>
+                    <option>家族に任せる</option>
+                </select>
+
+                <label>メモ</label>
+                <textarea placeholder="伝えておきたいことを書いてください。"></textarea>
+            </section>
+
+            <section class="form-section">
+                <h2>スマホ・端末情報</h2>
+
+                <label>契約キャリア</label>
+                <input type="text" placeholder="例）docomo、au、SoftBank、楽天モバイル">
+
+                <label>端末名</label>
+                <input type="text" placeholder="例）iPhone 15">
+
+                <label>ロック解除のヒント</label>
+                <input type="text" placeholder="例）家族なら分かる記念日">
+
+                <p class="help-text">※ スマホの暗証番号そのものは保存しないでください。</p>
+            </section>
+
+            <button type="button" class="main-button">
+                保存する
+            </button>
+
+        </form>
+
+        <footer class="bottom-nav">
+            <a href="/home/home.html">
+                <span>⌂</span>
+                <p>ホーム</p>
+            </a>
+
+            <a href="/mypage.html">
+                <span>♙</span>
+                <p>マイページ</p>
+            </a>
+
+            <a href="/setting.html">
+                <span>⚙</span>
+                <p>設定</p>
+            </a>
+        </footer>
+
+    </main>
 </body>
 </html>

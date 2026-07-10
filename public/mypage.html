@@ -1,34 +1,85 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>マイページ</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイページ | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-  <main class="app-screen">
-    <h1 class="page-title">マイページ</h1>
 
-    <section class="card">
-      <h2>山田 太郎</h2>
-      <p>taro@example.com</p>
-      <p>プロフィール完成度：70%</p>
+<main class="app-screen">
+
+    <header class="app-header">
+        <a href="/home/home.html" class="back-button">‹</a>
+        <h1>マイページ</h1>
+    </header>
+
+    <!-- プロフィール -->
+
+    <section class="profile-card">
+
+        <div class="profile-image">
+            👤
+        </div>
+
+        <h2>山田 太郎</h2>
+
+        <p>sample@example.com</p>
+
+        <button class="sub-button">
+            プロフィールを編集
+        </button>
+
     </section>
 
-    <section class="menu-list">
-      <a class="menu-card">閲覧コード一覧</a>
-      <a class="menu-card">信頼できる人：3人登録済み</a>
-      <a class="menu-card">最終更新日：2026/07/08</a>
+    <!-- アカウント -->
+
+    <section class="menu-section">
+
+        <a href="#" class="menu-item">
+            <span>🪪 プロフィール情報</span>
+            <span>›</span>
+        </a>
+
+        <a href="#" class="menu-item">
+            <span>📄 閲覧コード一覧</span>
+            <span>›</span>
+        </a>
+
+        <a href="#" class="menu-item">
+            <span>📨 通知履歴</span>
+            <span>›</span>
+        </a>
+
+        <a href="#" class="menu-item">
+            <span>🚪 ログアウト</span>
+            <span>›</span>
+        </a>
+
     </section>
 
-    <button class="danger" type="button">ログアウト</button>
+    <footer class="bottom-nav">
 
-    <footer class="footer-nav">
-      <a href="/home/home.html">ホーム</a>
-      <a href="/mypage.html">マイページ</a>
-      <a href="/setting.html">設定</a>
+        <a href="/home/home.html">
+            <span>⌂</span>
+            <p>ホーム</p>
+        </a>
+
+        <a href="/mypage.html" class="active">
+            <span>👤</span>
+            <p>マイページ</p>
+        </a>
+
+        <a href="/setting.html">
+            <span>⚙</span>
+            <p>設定</p>
+        </a>
+
     </footer>
-  </main>
+
+</main>
+
 </body>
 </html>

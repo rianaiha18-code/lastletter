@@ -1,44 +1,112 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>大切な人リスト</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大切な人リスト | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-  <main class="app-screen">
-    <a class="back-link" href="/home/home.html">←</a>
-    <h1 class="page-title">4 大切な人リスト</h1>
+    <main class="app-screen">
 
-    <section class="form-card">
-      <label>名前</label>
-      <input type="text">
+        <header class="app-header">
+            <a href="/home/home.html" class="back-button">‹</a>
+            <h1>大切な人リスト</h1>
+        </header>
 
-      <label>関係</label>
-      <input type="text" placeholder="例）母、親友、先生">
+        <section class="contact-form">
 
-      <label>電話番号</label>
-      <input type="text">
+            <div class="section-title-row">
+                <h2>連絡してほしい人</h2>
+                <button type="button" class="add-button">＋追加</button>
+            </div>
 
-      <label>メール</label>
-      <input type="email">
+            <div class="form-section">
 
-      <label>Instagram</label>
-      <input type="text" placeholder="@username">
+                <label>名前</label>
+                <input type="text" placeholder="例）山田 太郎">
 
-      <label>その他SNS・メモ</label>
-      <textarea></textarea>
+                <label>関係</label>
+                <input type="text" placeholder="例）母、親友、ゼミの先生">
 
-      <button type="button">大切な人を追加</button>
-      <button type="button" onclick="location.href='/home/message.html'">この人へのメッセージを書く</button>
-    </section>
+                <label>電話番号</label>
+                <input type="text" placeholder="例）090-1234-5678">
 
-    <footer class="footer-nav">
-      <a href="/home/home.html">ホーム</a>
-      <a href="/mypage.html">マイページ</a>
-      <a href="/setting.html">設定</a>
-    </footer>
-  </main>
+                <label>メールアドレス</label>
+                <input type="email" placeholder="例）sample@example.com">
+
+                <label>Instagram</label>
+                <input type="text" placeholder="例）@username">
+
+                <label>その他SNS・連絡方法</label>
+                <input type="text" placeholder="例）X、LINE、Discordなど">
+
+                <label>メモ</label>
+                <textarea placeholder="例）大学の親友。普段はInstagramで連絡を取っている。"></textarea>
+
+                <button type="button" class="main-button">
+                    リストに追加
+                </button>
+
+            </div>
+
+            <section class="message-section">
+
+                <h2>登録済みリスト</h2>
+
+                <div class="person-card">
+                    <div class="person-icon">👩</div>
+                    <div class="person-info">
+                        <p class="person-name">お母さん</p>
+                        <p class="person-relation">家族・電話番号登録済み</p>
+                    </div>
+                    <span class="person-arrow">›</span>
+                </div>
+
+                <div class="person-card">
+                    <div class="person-icon">😊</div>
+                    <div class="person-info">
+                        <p class="person-name">美咲</p>
+                        <p class="person-relation">親友・Instagram登録済み</p>
+                    </div>
+                    <span class="person-arrow">›</span>
+                </div>
+
+                <div class="person-card">
+                    <div class="person-icon">🏫</div>
+                    <div class="person-info">
+                        <p class="person-name">島先生</p>
+                        <p class="person-relation">ゼミ・メール登録済み</p>
+                    </div>
+                    <span class="person-arrow">›</span>
+                </div>
+
+            </section>
+
+            <button type="button" class="main-button">
+                保存する
+            </button>
+
+        </section>
+
+        <footer class="bottom-nav">
+            <a href="/home/home.html">
+                <span>⌂</span>
+                <p>ホーム</p>
+            </a>
+
+            <a href="/mypage.html">
+                <span>♙</span>
+                <p>マイページ</p>
+            </a>
+
+            <a href="/setting.html">
+                <span>⚙</span>
+                <p>設定</p>
+            </a>
+        </footer>
+
+    </main>
 </body>
 </html>

@@ -1,33 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メッセージを受け取る</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>閲覧コード | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-  <main class="form-screen">
-    <a class="back-link" href="/">←</a>
-    <h1 class="page-title">メッセージを受け取る</h1>
-    <p class="page-subtitle">閲覧コードと合言葉を入力してください</p>
+<main class="form-screen">
 
-    <form class="form-card">
-      <label>閲覧コード</label>
-      <input type="text" placeholder="例）ABCD-1234">
+    <header class="page-header">
+        <a href="/" class="back-button">‹</a>
+        <h1>閲覧コード</h1>
+    </header>
 
-      <label>合言葉</label>
-      <input type="text" placeholder="例）たからもの">
+    <section class="receive-section">
 
-      <label>任意：今の気持ち</label>
-      <textarea placeholder="送り主へ伝えたい気持ちがあれば入力してください"></textarea>
+        <p class="receive-lead">
+            大切な人から受け取った<br>
+            閲覧コードと合言葉を入力してください。
+        </p>
 
-      <button type="button">確認リクエストを送信</button>
-    </form>
+        <form class="form-area receive-form">
 
-    <div class="info-box">
-      <a href="/info/code-info.html">閲覧コードとは</a>
+            <label for="viewCode">閲覧コード</label>
+            <input 
+                type="text" 
+                id="viewCode" 
+                placeholder="例）ABCD-1234">
+
+            <label for="viewKeyword">合言葉</label>
+            <input 
+                type="text" 
+                id="viewKeyword" 
+                placeholder="例）家族旅行">
+
+            <p class="help-text">
+                ※ 本人確認のため、登録者へ確認通知が送信されます。
+            </p>
+
+            <button type="button" class="main-button" id="requestButton">
+                確認リクエストを送信
+            </button>
+
+        </form>
+
+        <a href="/info/code-info.html" class="bottom-link">
+            閲覧コードとは？
+        </a>
+
+    </section>
+
+    <div id="toast" class="toast">
+        ✔ リクエストを送信しました
     </div>
-  </main>
+
+</main>
+
+<script src="/js/receive.js"></script>
 </body>
 </html>

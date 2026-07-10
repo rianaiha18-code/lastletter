@@ -1,35 +1,104 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信頼できる人</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信頼できる人 | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-  <main class="app-screen">
-    <a class="back-link" href="/home/home.html">←</a>
-    <h1 class="page-title">5 信頼できる人</h1>
+    <main class="app-screen">
 
-    <section class="form-card">
-      <label>名前</label>
-      <input type="text">
+        <header class="app-header">
+            <a href="/home/home.html" class="back-button">‹</a>
+            <h1>信頼できる人</h1>
+        </header>
 
-      <label>関係</label>
-      <input type="text" placeholder="例）母、兄、親友">
+        <section class="trusted-form">
 
-      <label>メールアドレス</label>
-      <input type="email">
+            <div class="section-title-row">
+                <h2>閲覧コードを管理してもらう人</h2>
+                <button type="button" class="add-button">＋追加</button>
+            </div>
 
-      <button type="button">信頼できる人を追加</button>
-      <button type="button">閲覧コード一覧をメール送信</button>
-    </section>
+            <div class="form-section">
 
-    <footer class="footer-nav">
-      <a href="/home/home.html">ホーム</a>
-      <a href="/mypage.html">マイページ</a>
-      <a href="/setting.html">設定</a>
-    </footer>
-  </main>
+                <label>名前</label>
+                <input type="text" placeholder="例）山田 花子">
+
+                <label>関係</label>
+                <input type="text" placeholder="例）母、兄、親友">
+
+                <label>メールアドレス</label>
+                <input type="email" placeholder="例）sample@example.com">
+
+                <button type="button" class="main-button">
+                    信頼できる人を追加
+                </button>
+
+            </div>
+
+            <section class="message-section">
+
+                <h2>登録済みリスト</h2>
+
+                <div class="person-card">
+                    <div class="person-icon">👩</div>
+                    <div class="person-info">
+                        <p class="person-name">お母さん</p>
+                        <p class="person-relation">母・メール登録済み</p>
+                    </div>
+                    <span class="person-arrow">›</span>
+                </div>
+
+                <div class="person-card">
+                    <div class="person-icon">👨</div>
+                    <div class="person-info">
+                        <p class="person-name">お兄ちゃん</p>
+                        <p class="person-relation">兄・メール登録済み</p>
+                    </div>
+                    <span class="person-arrow">›</span>
+                </div>
+
+            </section>
+
+            <div class="code-send-box">
+                <h2>閲覧コード一覧を送信</h2>
+
+                <p>
+                    登録した信頼できる人へ、  
+                    相手ごとの閲覧コード一覧をメールで送信します。
+                </p>
+
+                <button type="button" class="main-button">
+                    閲覧コード一覧をメール送信
+                </button>
+            </div>
+
+            <button type="button" class="main-button">
+                保存する
+            </button>
+
+        </section>
+
+        <footer class="bottom-nav">
+            <a href="/home/home.html">
+                <span>⌂</span>
+                <p>ホーム</p>
+            </a>
+
+            <a href="/mypage.html">
+                <span>♙</span>
+                <p>マイページ</p>
+            </a>
+
+            <a href="/setting.html">
+                <span>⚙</span>
+                <p>設定</p>
+            </a>
+        </footer>
+
+    </main>
 </body>
 </html>

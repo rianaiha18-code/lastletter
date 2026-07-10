@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あなたへのメッセージ | Last Letter</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<main class="view-screen">
+
+    <section class="letter-intro" id="letterIntro">
+
+        <div class="view-logo">✿</div>
+
+        <h1>Last Letter</h1>
+
+        <p class="from-text">
+            大切な人から<br>
+            あなたへ
+        </p>
+
+        <p class="intro-message">
+            このメッセージは、<br>
+            あなたのために残されたものです。
+        </p>
+
+        <button class="main-button" id="openLetterButton">
+            開いて読む
+        </button>
+
+    </section>
+
+    <section class="letter-content" id="letterContent">
+
+        <h2>あなたへのメッセージ</h2>
+
+        <div class="letter-card">
+            <p id="viewOverallMessage">
+                ここに全体へのメッセージが表示されます。
+            </p>
+        </div>
+
+        <h2>相手ごとのメッセージ</h2>
+
+        <div id="viewPersonMessages"></div>
+
+        <p class="end-text">
+            最後まで読んでいただき、<br>
+            ありがとうございました。
+        </p>
+
+        <button class="sub-button" onclick="location.href='/'">
+            トップへ戻る
+        </button>
+
+    </section>
+
+</main>
+
+<script src="/js/view.js"></script>
+</body>
+</html>
