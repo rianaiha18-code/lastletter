@@ -321,6 +321,117 @@ app.post("/api/view-access", async (req, res) => {
         });
     }
 });
+app.get("/api/funeral-request", async (req, res) => {
+    try {
+        const [rows] = await pool.execute(
+            `
+            SELECT
+                ceremony_type AS ceremonyType,
+                scale AS funeralScale,
+                photo AS funeralPhoto,
+                items_with_coffin AS coffinItems,
+                bgm_song AS bgmSong,
+                bgm_artist AS bgmArtist,
+                bgm_reason AS bgmReason,
+                ashes_destination AS ashesDestination,
+                keep_items AS keepItems,
+                discard_items AS discardItems,
+                family_message AS familyMessage
+            FROM funeral_requests
+            WHERE user_id = ?
+            `,
+            [DEMO_USER_ID]
+        );
+
+        res.json({
+            success: true,
+            funeralRequest: rows[0] || null
+        });
+    } catch (error) {
+        console.error("葬儀リクエスト取得エラー:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "葬儀リクエストの取得に失敗しました"
+        });
+    }
+});
+app.put("/api/funeral-request", async (req, res) => {
+    try {
+        const {
+            ceremonyType,
+            funeralScale,
+            funeralPhoto,
+            coffinItems,
+            bgmSong,
+            bgmArtist,
+            bgmReason,
+            ashesDestination,
+            keepItems,
+            discardItems,
+            familyMessage
+        } = req.body;
+
+        await pool.execute(
+            `
+            INSERT INTO funeral_requests (
+                user_id,
+                ceremony_type,
+                scale,
+                photo,
+                items_with_coffin,
+                bgm_song,
+                bgm_artist,
+                bgm_reason,
+                ashes_destination,
+                keep_items,
+                discard_items,
+                family_message
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+            ON DUPLICATE KEY UPDATE
+                ceremony_type = VALUES(ceremony_type),
+                scale = VALUES(scale),
+                photo = VALUES(photo),
+                items_with_coffin = VALUES(items_with_coffin),
+                bgm_song = VALUES(bgm_song),
+                bgm_artist = VALUES(bgm_artist),
+                bgm_reason = VALUES(bgm_reason),
+                ashes_destination = VALUES(ashes_destination),
+                keep_items = VALUES(keep_items),
+                discard_items = VALUES(discard_items),
+                family_message = VALUES(family_message)
+            `,
+            [
+                DEMO_USER_ID,
+                ceremonyType || null,
+                funeralScale || null,
+                funeralPhoto || null,
+                coffinItems || null,
+                bgmSong || null,
+                bgmArtist || null,
+                bgmReason || null,
+                ashesDestination || null,
+                keepItems || null,
+                discardItems || null,
+                familyMessage || null
+            ]
+        );
+
+        res.json({
+            success: true,
+            message: "葬儀リクエストを保存しました"
+        });
+    } catch (error) {
+        console.error("葬儀リクエスト保存エラー:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "葬儀リクエストの保存に失敗しました"
+        });
+    }
+});
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

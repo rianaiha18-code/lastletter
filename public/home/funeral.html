@@ -21,76 +21,63 @@
                 <h2>葬儀について</h2>
 
                 <label>葬儀形式</label>
-                <select>
-                    <option>選択してください</option>
-                    <option>家族葬</option>
-                    <option>一般葬</option>
-                    <option>直葬</option>
-                    <option>お別れ会</option>
-                    <option>家族に任せる</option>
+                <select id="ceremonyType">
+                    <option value="">選択してください</option>
+                    <option value="家族葬">家族葬</option>
+                    <option value="一般葬">一般葬</option>
+                    <option value="直葬">直葬</option>
+                    <option value="お別れ会">お別れ会</option>
+                    <option value="家族に任せる">家族に任せる</option>
                 </select>
 
                 <label>葬儀規模</label>
-                <select>
-                    <option>選択してください</option>
-                    <option>家族のみ</option>
-                    <option>親しい友人まで</option>
-                    <option>大学・職場関係まで</option>
-                    <option>こだわりなし</option>
+                <select id="funeralScale">
+                    <option value="">選択してください</option>
+                    <option value="家族のみ">家族のみ</option>
+                    <option value="親しい友人まで">親しい友人まで</option>
+                    <option value="大学・職場関係まで">大学・職場関係まで</option>
+                    <option value="こだわりなし">こだわりなし</option>
                 </select>
-            </section>
 
-            <section class="form-section">
-                <h2>遺影</h2>
                 <label>使ってほしい写真</label>
-                <input type="file">
-                <p class="help-text">※ 今は画面デザイン用です。画像保存は後で実装します。</p>
-            </section>
+                <input type="file" id="funeralPhoto">
 
-            <section class="form-section">
-                <h2>棺に一緒に入れてほしい物</h2>
-                <textarea placeholder="例）手紙、写真、ぬいぐるみ、アクセサリーなど"></textarea>
-            </section>
-
-            <section class="form-section">
-                <h2>BGM</h2>
+                <label>棺に一緒に入れてほしい物</label>
+                <textarea id="coffinItems"></textarea>
 
                 <label>曲名</label>
-                <input type="text" placeholder="例）好きな曲名">
+                <input type="text" id="bgmSong">
 
                 <label>アーティスト名</label>
-                <input type="text" placeholder="例）アーティスト名">
+                <input type="text" id="bgmArtist">
 
                 <label>理由・思い出</label>
-                <textarea placeholder="この曲を選んだ理由や思い出を書いてください。"></textarea>
-            </section>
+                <textarea id="bgmReason"></textarea>
 
-            <section class="form-section">
-                <h2>供養方法・お骨の行き先</h2>
-                <select>
-                    <option>選択してください</option>
-                    <option>お墓</option>
-                    <option>納骨堂</option>
-                    <option>海洋散骨</option>
-                    <option>手元供養</option>
-                    <option>家族に任せる</option>
+                <label>供養方法・お骨の行き先</label>
+                <select id="ashesDestination">
+                    <option value="">選択してください</option>
+                    <option value="お墓">お墓</option>
+                    <option value="納骨堂">納骨堂</option>
+                    <option value="海洋散骨">海洋散骨</option>
+                    <option value="手元供養">手元供養</option>
+                    <option value="家族に任せる">家族に任せる</option>
                 </select>
-            </section>
-
-            <section class="form-section">
-                <h2>部屋・遺品整理について</h2>
 
                 <label>残してほしい物</label>
-                <textarea placeholder="例）アルバム、手紙、思い出の品など"></textarea>
+                <textarea id="keepItems"></textarea>
 
                 <label>処分してよい物</label>
-                <textarea placeholder="例）処分してよい物を書いてください"></textarea>
+                <textarea id="discardItems"></textarea>
 
                 <label>家族へのお願い</label>
-                <textarea placeholder="遺品整理について家族へ伝えたいことを書いてください。"></textarea>
+                <textarea id="familyMessage"></textarea>
             </section>
 
-            <button type="button" class="main-button" id="saveFuneralButton">
+            <button
+                type="button"
+                class="main-button"
+                id="saveFuneralButton">
                 保存する
             </button>
 
