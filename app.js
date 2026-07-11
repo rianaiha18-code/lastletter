@@ -709,6 +709,25 @@ app.get("/api/recipients", async (req, res) => {
         });
     }
 });
+app.post("/api/logout", (req, res) => {
+    req.session.destroy((error) => {
+        if (error) {
+            console.error("ログアウトエラー:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "ログアウトに失敗しました"
+            });
+        }
+
+        res.clearCookie("connect.sid");
+
+        res.json({
+            success: true,
+            message: "ログアウトしました"
+        });
+    });
+});
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

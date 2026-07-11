@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+
+    await checkLogin();
+
     const saveButton = document.getElementById("saveFuneralButton");
     const toast = document.getElementById("toast");
 

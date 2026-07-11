@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+
+    await checkLogin();
+
     const modal = document.getElementById("personModal");
     const addButton = document.getElementById("addPersonButton");
     const cancelButton = document.getElementById("cancelButton");

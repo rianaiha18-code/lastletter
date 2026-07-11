@@ -402,7 +402,7 @@ width:100%;
 /* ホームメニュー */
 
 .home-menu{
-    padding:25px 20px;
+    padding:18px 20px 25px;
 }
 
 .home-card{
@@ -1249,4 +1249,66 @@ opacity:1;
     background: #f2eee9;
     color: #8c8178;
     cursor: not-allowed;
+}
+.logout-item{
+    width:100%;
+    border:1px solid #eadfd3;
+    font-family:inherit;
+    font-size:inherit;
+    cursor:pointer;
+}
+#welcomeMessage{
+
+    margin-top:8px;
+
+    color:#8b6f5b;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+.welcome-box{
+    margin:18px 0 28px;
+}
+
+.welcome-title{
+    font-size:22px;
+    font-weight:600;
+    color:#6d4c41;
+    margin-bottom:8px;
+}
+
+.welcome-sub{
+    color:#8f8f8f;
+    font-size:14px;
+    line-height:1.7;
+}
+.welcome-text{
+    margin-top: 4px;
+    margin-bottom: 18px;
+    color: #8b6f5b;
+    font-size: 15px;
+    font-weight: 500;
+}
+/* ホームの挨拶 */
+
+.home-welcome{
+    padding:22px 20px 4px;
+}
+
+
+.welcome-message{
+    margin:0 0 7px;
+    color:#6f543d;
+    font-size:17px;
+    font-weight:bold;
+    line-height:1.6;
+}
+
+.welcome-sub{
+    margin:0;
+    color:#9b897a;
+    font-size:13px;
+    line-height:1.7;
 }
