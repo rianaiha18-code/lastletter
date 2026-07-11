@@ -222,19 +222,45 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    deletePersonButton.onclick = () => {
+    deletePersonButton.onclick = async () => {
+
         if (editIndex === null) return;
 
-        const isDelete = confirm(`${people[editIndex].name}さんを削除しますか？`);
+        const person = people[editIndex];
 
-        if (!isDelete) return;
+        const ok = confirm(`${person.name}さんを削除しますか？`);
 
-        people.splice(editIndex, 1);
+        if (!ok) return;
 
-        renderPeople();
-        closeModal();
+        try {
 
-        showToast("✔ 削除しました");
+            const response = await fetch(
+                `/api/recipients/${person.id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+
+            await loadPeople();
+
+            closeModal();
+
+            showToast("✔ 削除しました");
+
+        } catch (error) {
+
+            console.error(error);
+
+            showToast("削除に失敗しました");
+
+        }
+
     };
 
     saveButton.onclick = async () => {

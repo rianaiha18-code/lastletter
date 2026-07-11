@@ -3,12 +3,27 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const pool = require("./db");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
 
 const app = express();
 const PORT = 3000;
 
 // JSON形式のデータを受け取れるようにする
 app.use(express.json());
+
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            sameSite: "lax",
+            maxAge: 1000 * 60 * 60 * 2
+        }
+    })
+);
 
 // publicフォルダ内のHTML・CSS・JS・画像を公開
 app.use(express.static(path.join(__dirname, "public")));
@@ -35,19 +50,27 @@ app.get("/api/db-test", async (req, res) => {
         });
     }
 });
-// デモ用ユーザーID
-const DEMO_USER_ID = 1;
+
 
 // 全体メッセージを取得
 app.get("/api/message", async (req, res) => {
     try {
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "ログインしてください"
+            });
+        }
+
         const [rows] = await pool.execute(
             `
             SELECT overall_message
             FROM users
             WHERE id = ?
             `,
-            [DEMO_USER_ID]
+            [userId]
         );
 
         if (rows.length === 0) {
@@ -74,6 +97,15 @@ app.get("/api/message", async (req, res) => {
 // 全体メッセージを保存
 app.put("/api/message", async (req, res) => {
     try {
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "ログインしてください"
+            });
+        }
+
         const { overallMessage } = req.body;
 
         if (typeof overallMessage !== "string") {
@@ -89,15 +121,8 @@ app.put("/api/message", async (req, res) => {
             SET overall_message = ?
             WHERE id = ?
             `,
-            [overallMessage, DEMO_USER_ID]
+            [overallMessage, userId]
         );
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "ユーザーが見つかりません"
-            });
-        }
 
         res.json({
             success: true,
@@ -146,7 +171,7 @@ app.put("/api/recipients/:id", async (req, res) => {
                 relation,
                 message || "",
                 recipientId,
-                DEMO_USER_ID
+                userId
             ]
         );
 
@@ -170,51 +195,23 @@ app.put("/api/recipients/:id", async (req, res) => {
         });
     }
 });
-app.get("/api/recipients", async (req, res) => {
-    try {
-        const [rows] = await pool.execute(
-            `
-            SELECT
-                id,
-                name,
-                relation,
-                view_code AS code,
-                message
-            FROM recipients
-            WHERE user_id = ?
-            ORDER BY id ASC
-            `,
-            [DEMO_USER_ID]
-        );
-
-        res.json({
-            success: true,
-            recipients: rows
-        });
-    } catch (error) {
-        console.error("相手一覧取得エラー:", error);
-
-        res.status(500).json({
-            success: false,
-            message: "相手一覧の取得に失敗しました"
-        });
-    }
-});
-
 app.post("/api/recipients", async (req, res) => {
     try {
-        const {
-            name,
-            relation,
-            keyword,
-            message,
-            code
-        } = req.body;
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "ログインしてください"
+            });
+        }
+
+        const { name, relation, keyword, message, code } = req.body;
 
         if (!name || !relation || !keyword || !code) {
             return res.status(400).json({
                 success: false,
-                message: "必要な項目が不足しています"
+                message: "必要な項目を入力してください"
             });
         }
 
@@ -231,7 +228,7 @@ app.post("/api/recipients", async (req, res) => {
             VALUES (?, ?, ?, ?, ?, ?)
             `,
             [
-                DEMO_USER_ID,
+                userId,
                 name,
                 relation,
                 code,
@@ -323,6 +320,14 @@ app.post("/api/view-access", async (req, res) => {
 });
 app.get("/api/funeral-request", async (req, res) => {
     try {
+        const userId = req.session.userId;
+
+            if (!userId) {
+                return res.status(401).json({
+                    success: false,
+                    message: "ログインしてください"
+                });
+            }
         const [rows] = await pool.execute(
             `
             SELECT
@@ -340,7 +345,7 @@ app.get("/api/funeral-request", async (req, res) => {
             FROM funeral_requests
             WHERE user_id = ?
             `,
-            [DEMO_USER_ID]
+            [userId]
         );
 
         res.json({
@@ -358,6 +363,14 @@ app.get("/api/funeral-request", async (req, res) => {
 });
 app.put("/api/funeral-request", async (req, res) => {
     try {
+        const userId = req.session.userId;
+
+            if (!userId) {
+                return res.status(401).json({
+                    success: false,
+                    message: "ログインしてください"
+                });
+            }
         const {
             ceremonyType,
             funeralScale,
@@ -404,7 +417,7 @@ app.put("/api/funeral-request", async (req, res) => {
                 family_message = VALUES(family_message)
             `,
             [
-                DEMO_USER_ID,
+                userId,
                 ceremonyType || null,
                 funeralScale || null,
                 funeralPhoto || null,
@@ -429,6 +442,270 @@ app.put("/api/funeral-request", async (req, res) => {
         res.status(500).json({
             success: false,
             message: "葬儀リクエストの保存に失敗しました"
+        });
+    }
+});
+app.delete("/api/recipients/:id", async (req, res) => {
+    try {
+        const recipientId = Number(req.params.id);
+
+        const [result] = await pool.execute(
+            `
+            DELETE FROM recipients
+            WHERE id = ?
+              AND user_id = ?
+            `,
+            [
+                recipientId,
+                userId
+            ]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "削除する相手が見つかりません"
+            });
+        }
+
+        res.json({
+            success: true,
+            message: "削除しました"
+        });
+
+    } catch (error) {
+
+        console.error("削除エラー:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "削除に失敗しました"
+        });
+
+    }
+});
+app.post("/api/register", async (req, res) => {
+    try {
+        const {
+            username,
+            email,
+            password,
+            confirmPassword
+        } = req.body;
+
+        const trimmedUsername =
+            typeof username === "string" ? username.trim() : "";
+
+        const normalizedEmail =
+            typeof email === "string"
+                ? email.trim().toLowerCase()
+                : "";
+
+        if (
+            !trimmedUsername ||
+            !normalizedEmail ||
+            !password ||
+            !confirmPassword
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "すべての項目を入力してください"
+            });
+        }
+
+        if (password !== confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "確認用パスワードが一致しません"
+            });
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({
+                success: false,
+                message: "パスワードは8文字以上にしてください"
+            });
+        }
+
+        const [existingUsers] = await pool.execute(
+            `
+            SELECT id
+            FROM users
+            WHERE email = ?
+            LIMIT 1
+            `,
+            [normalizedEmail]
+        );
+
+        if (existingUsers.length > 0) {
+            return res.status(409).json({
+                success: false,
+                message: "このメールアドレスはすでに登録されています"
+            });
+        }
+
+        const passwordHash = await bcrypt.hash(password, 12);
+
+        const [result] = await pool.execute(
+            `
+            INSERT INTO users (
+                username,
+                email,
+                password_hash,
+                overall_message
+            )
+            VALUES (?, ?, ?, '')
+            `,
+            [
+                trimmedUsername,
+                normalizedEmail,
+                passwordHash
+            ]
+        );
+
+        req.session.userId = result.insertId;
+        req.session.username = trimmedUsername;
+
+        res.status(201).json({
+            success: true,
+            message: "新規登録が完了しました",
+            user: {
+                id: result.insertId,
+                username: trimmedUsername,
+                email: normalizedEmail
+            }
+        });
+    } catch (error) {
+        console.error("新規登録エラー:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "新規登録に失敗しました"
+        });
+    }
+});
+app.post("/api/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const normalizedEmail =
+            typeof email === "string"
+                ? email.trim().toLowerCase()
+                : "";
+
+        if (!normalizedEmail || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "メールアドレスとパスワードを入力してください"
+            });
+        }
+
+        const [rows] = await pool.execute(
+            `
+            SELECT
+                id,
+                username,
+                email,
+                password_hash
+            FROM users
+            WHERE email = ?
+            LIMIT 1
+            `,
+            [normalizedEmail]
+        );
+
+        if (rows.length === 0) {
+            return res.status(401).json({
+                success: false,
+                message: "メールアドレスまたはパスワードが違います"
+            });
+        }
+
+        const user = rows[0];
+
+        const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password_hash
+        );
+
+        if (!isPasswordCorrect) {
+            return res.status(401).json({
+                success: false,
+                message: "メールアドレスまたはパスワードが違います"
+            });
+        }
+
+        req.session.userId = user.id;
+        req.session.username = user.username;
+
+        res.json({
+            success: true,
+            message: "ログインしました",
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email
+            }
+        });
+    } catch (error) {
+        console.error("ログインエラー:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "ログインに失敗しました"
+        });
+    }
+});
+app.get("/api/me", (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({
+            success: false,
+            message: "ログインしていません"
+        });
+    }
+
+    res.json({
+        success: true,
+        userId: req.session.userId,
+        username: req.session.username
+    });
+});
+app.get("/api/recipients", async (req, res) => {
+    try {
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "ログインしてください"
+            });
+        }
+
+        const [rows] = await pool.execute(
+            `
+            SELECT
+                id,
+                name,
+                relation,
+                view_code AS code,
+                message
+            FROM recipients
+            WHERE user_id = ?
+            ORDER BY id ASC
+            `,
+            [userId]
+        );
+
+        res.json({
+            success: true,
+            recipients: rows
+        });
+    } catch (error) {
+        console.error("相手一覧取得エラー:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "相手一覧の取得に失敗しました"
         });
     }
 });
