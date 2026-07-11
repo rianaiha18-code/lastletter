@@ -17,21 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const overallMessage = document.getElementById("overallMessage");
     let editIndex = null;
 
-    let people = JSON.parse(localStorage.getItem("people")) || [
-        { name: "お母さん", relation: "家族", keyword: "", message: "", icon: "👩", code: generateCode() },
-        { name: "お兄ちゃん", relation: "家族", keyword: "", message: "", icon: "👨", code: generateCode() },
-        { name: "美咲", relation: "親友",keyword: "", message: "", icon: "😊", code: generateCode() }
-    ];
-    people = people.map(person => {
-    if (!person.code) {
-        person.code = generateCode();
-    }
-    return person;
-});
-
-savePeople();
-
-    overallMessage.value = localStorage.getItem("overallMessage") || "";
+    let people = [];
 
     function generateCode() {
         const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -42,8 +28,30 @@ savePeople();
         return code.slice(0, 4) + "-" + code.slice(4);
     }
 
-    function savePeople() {
-        localStorage.setItem("people", JSON.stringify(people));
+    async function loadPeople() {
+        try {
+            const response = await fetch("/api/recipients");
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+
+            people = data.recipients.map(person => ({
+                id: person.id,
+                name: person.name,
+                relation: person.relation,
+                keyword: "",
+                message: person.message || "",
+                icon: "😊",
+                code: person.code
+            }));
+
+            renderPeople();
+        } catch (error) {
+            console.error("相手一覧取得エラー:", error);
+            showToast("相手一覧を読み込めませんでした");
+        }
     }
 
     function showToast(text) {
@@ -60,6 +68,13 @@ savePeople();
         modalRelation.value = "";
         modalKeyword.value = "";
         modalMessage.value = "";
+
+        modalKeyword.disabled = false;
+        modalKeyword.placeholder = "例）家族旅行";
+
+        document.getElementById("keywordNote").textContent =
+            "※ 合言葉は初回登録時のみ設定できます。忘れないように控えてください。";
+
         editIndex = null;
         deletePersonButton.style.display = "none";
     }
@@ -69,10 +84,19 @@ savePeople();
             resetModal();
         } else {
             editIndex = index;
+
             modalName.value = people[index].name;
             modalRelation.value = people[index].relation;
-            modalKeyword.value = people[index].keyword || "";
             modalMessage.value = people[index].message || "";
+
+            // 合言葉は再表示・変更しない
+            modalKeyword.value = "";
+            modalKeyword.disabled = true;
+            modalKeyword.placeholder = "設定済み（変更できません）";
+
+            document.getElementById("keywordNote").textContent =
+                "※ 合言葉は登録済みです。変更する場合は、相手を削除して再登録してください。";
+
             deletePersonButton.style.display = "block";
         }
 
@@ -111,8 +135,6 @@ savePeople();
         });
     }
 
-    renderPeople();
-
     addButton.onclick = () => {
         openModal();
     };
@@ -121,40 +143,83 @@ savePeople();
         closeModal();
     };
 
-    savePersonButton.onclick = () => {
+    savePersonButton.onclick = async () => {
         const name = modalName.value.trim();
         const relation = modalRelation.value.trim();
         const keyword = modalKeyword.value.trim();
         const message = modalMessage.value.trim();
 
-        if (name === "" || relation === "" || keyword === "") {
-            alert("名前・関係・合言葉を入力してください");
+        const isNewRecipient = editIndex === null;
+
+        if (!name || !relation) {
+            alert("名前と関係を入力してください");
             return;
         }
 
-        if (editIndex === null) {
-            people.push({
-                name,
-                relation,
-                keyword,
-                message,
-                icon: "😊",
-                code: generateCode()
-            });
-
-            showToast("✔ 追加しました");
-        } else {
-            people[editIndex].name = name;
-            people[editIndex].relation = relation;
-            people[editIndex].keyword = keyword;
-            people[editIndex].message = message;
-
-            showToast("✔ 更新しました");
+        if (isNewRecipient && !keyword) {
+            alert("合言葉を入力してください");
+            return;
         }
 
-        savePeople();
-        renderPeople();
-        closeModal();
+        try {
+            if (isNewRecipient) {
+                const code = generateCode();
+
+                const response = await fetch("/api/recipients", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name,
+                        relation,
+                        keyword,
+                        message,
+                        code
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || "登録に失敗しました");
+                }
+
+                await loadPeople();
+                closeModal();
+                showToast("✔ 追加しました");
+            } else {
+                const recipient = people[editIndex];
+
+                const response = await fetch(
+                    `/api/recipients/${recipient.id}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name,
+                            relation,
+                            message
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || "更新に失敗しました");
+                }
+
+                await loadPeople();
+                closeModal();
+                showToast("✔ 更新しました");
+            }
+        } catch (error) {
+            console.error("相手保存エラー:", error);
+            showToast(error.message || "保存に失敗しました");
+        }
     };
 
     deletePersonButton.onclick = () => {
@@ -166,17 +231,53 @@ savePeople();
 
         people.splice(editIndex, 1);
 
-        savePeople();
         renderPeople();
         closeModal();
 
         showToast("✔ 削除しました");
     };
 
-    saveButton.onclick = () => {
-        localStorage.setItem("overallMessage", overallMessage.value);
+    saveButton.onclick = async () => {
+        try {
+            const response = await fetch("/api/message", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    overallMessage: overallMessage.value
+                })
+            });
 
-        savePeople();
-        showToast("✔ 保存しました");
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+
+            // 相手別データは、まだLocalStorageに保存
+
+            showToast("✔ 保存しました");
+        } catch (error) {
+            console.error("全体メッセージ保存エラー:", error);
+            showToast("保存に失敗しました");
+        }
     };
+    async function loadOverallMessage() {
+        try {
+            const response = await fetch("/api/message");
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+
+            overallMessage.value = data.overallMessage;
+        } catch (error) {
+            console.error("全体メッセージ取得エラー:", error);
+            showToast("メッセージを読み込めませんでした");
+        }
+    }
+    loadPeople();
+    loadOverallMessage();
 });

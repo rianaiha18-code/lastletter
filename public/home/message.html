@@ -45,12 +45,19 @@
                   <label>関係</label>
                   <input type="text" id="modalRelation">
 
-                  <label>合言葉</label>
-                  <input 
-                      type="text" 
+                  <label for="modalKeyword">合言葉</label>
+
+                  <input
+                      type="text"
                       id="modalKeyword"
-                      placeholder="例）家族旅行">
-                      
+                      placeholder="例）家族旅行"
+                  >
+
+                  <p class="keyword-note" id="keywordNote">
+                      ※ 合言葉は初回登録時のみ設定できます。
+                      忘れないように控えてください。
+                  </p>
+
                   <label>メッセージ</label>
                   <textarea
                       id="modalMessage"
@@ -123,10 +130,11 @@
         </section>
 
         <button
+            type="button"
             class="main-button"
             id="saveButton">
-
-        保存する
+            保存する
+        </button>
 
         </button>
         <footer class="bottom-nav">

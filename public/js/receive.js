@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const viewKeyword = document.getElementById("viewKeyword");
     const toast = document.getElementById("toast");
 
-    requestButton.onclick = () => {
+    requestButton.onclick = async () => {
         const inputCode = viewCode.value.trim();
         const inputKeyword = viewKeyword.value.trim();
 
@@ -13,24 +13,39 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const people = JSON.parse(localStorage.getItem("people")) || [];
+        try {
+            const response = await fetch("/api/view-access", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    viewCode: inputCode,
+                    keyword: inputKeyword
+                })
+            });
 
-        const targetPerson = people.find(person =>
-            person.code === inputCode &&
-            person.keyword === inputKeyword
-        );
+            const data = await response.json();
 
-        if (!targetPerson) {
-            alert("閲覧コードまたは合言葉が違います");
-            return;
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+
+            // 閲覧ページで使う情報を一時保存
+            sessionStorage.setItem(
+                "viewRecipient",
+                JSON.stringify(data.recipient)
+            );
+
+            toast.textContent = "✔ 確認できました";
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                location.href = "/view.html";
+            }, 1000);
+        } catch (error) {
+            console.error("閲覧確認エラー:", error);
+            alert(error.message || "閲覧確認に失敗しました");
         }
-
-        localStorage.setItem("viewTargetCode", inputCode);
-
-        toast.classList.add("show");
-
-        setTimeout(() => {
-            location.href = "/view.html";
-        }, 1200);
     };
 });

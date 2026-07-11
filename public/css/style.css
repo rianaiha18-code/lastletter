@@ -1238,3 +1238,15 @@ opacity:1;
     font-size:11px;
     color:#9f7c5d;
 }
+.keyword-note {
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 1.6;
+    color: #9a7960;
+}
+
+#modalKeyword:disabled {
+    background: #f2eee9;
+    color: #8c8178;
+    cursor: not-allowed;
+}
