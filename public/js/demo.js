@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             }
 
-            location.href = "/auth/login.html";
+            location.href="/index.html";
         } catch (error) {
             console.error("デモ認証エラー:", error);
             alert(error.message);
