@@ -5,24 +5,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const registerButton =
-        document.getElementById("registerButton");
-
-    const usernameInput =
-        document.getElementById("name");
-
-    const emailInput =
-        document.getElementById("email");
-
-    const passwordInput =
-        document.getElementById("password");
-
+    const registerButton = document.getElementById("registerButton");
+    const usernameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
     const confirmPasswordInput =
         document.getElementById("confirmPassword");
 
-    if (!registerButton) {
-        console.error("登録ボタンが見つかりません");
+    if (
+        !registerButton ||
+        !usernameInput ||
+        !emailInput ||
+        !passwordInput ||
+        !confirmPasswordInput
+    ) {
+        console.error("新規登録画面の要素が見つかりません");
         return;
     }
 
@@ -32,12 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = passwordInput.value;
         const confirmPassword = confirmPasswordInput.value;
 
-        if (
-            !username ||
-            !email ||
-            !password ||
-            !confirmPassword
-        ) {
+        if (!username || !email || !password || !confirmPassword) {
             alert("すべての項目を入力してください");
             return;
         }
@@ -72,8 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             }
 
-            alert("新規登録が完了しました");
-
             location.href = "/home/home.html";
         } catch (error) {
             console.error("新規登録エラー:", error);
@@ -83,5 +73,4 @@ document.addEventListener("DOMContentLoaded", () => {
             registerButton.textContent = "登録する";
         }
     };
-});
 });

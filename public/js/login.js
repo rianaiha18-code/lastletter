@@ -5,18 +5,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const loginButton =
-        document.getElementById("loginButton");
+    const loginButton = document.getElementById("loginButton");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
 
-    const emailInput =
-        document.getElementById("email");
-
-    const passwordInput =
-        document.getElementById("password");
-
-    if (!loginButton) {
-        console.error("ログインボタンが見つかりません");
+    if (!loginButton || !emailInput || !passwordInput) {
+        console.error("ログイン画面の要素が見つかりません");
         return;
     }
 
@@ -67,5 +61,4 @@ document.addEventListener("DOMContentLoaded", () => {
             loginButton.click();
         }
     });
-});
 });
