@@ -728,6 +728,78 @@ app.post("/api/logout", (req, res) => {
         });
     });
 });
+app.post("/api/demo-access", (req, res) => {
+    const { accessCode } = req.body;
+
+    if (!accessCode) {
+        return res.status(400).json({
+            success: false,
+            message: "アクセスコードを入力してください"
+        });
+    }
+
+    if (accessCode !== process.env.DEMO_ACCESS_CODE) {
+        return res.status(401).json({
+            success: false,
+            message: "アクセスコードが違います"
+        });
+    }
+
+    req.session.demoAccess = true;
+
+    req.session.save((error) => {
+        if (error) {
+            console.error("デモ認証保存エラー:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "アクセス認証に失敗しました"
+            });
+        }
+
+        res.json({
+            success: true,
+            message: "アクセスを許可しました"
+        });
+    });
+});
+function requireDemoAccess(req, res, next) {
+    if (!req.session.demoAccess) {
+        return res.status(403).json({
+            success: false,
+            message: "デモアクセス認証が必要です"
+        });
+    }
+
+    next();
+}
+app.get("/api/demo-access", (req, res) => {
+    if (!req.session.demoAccess) {
+        return res.status(403).json({
+            success: false,
+            message: "デモアクセス認証が必要です"
+        });
+    }
+
+    res.json({
+        success: true
+    });
+});
+app.post("/api/demo-logout", (req, res) => {
+    req.session.demoAccess = false;
+
+    req.session.save((error) => {
+        if (error) {
+            return res.status(500).json({
+                success: false
+            });
+        }
+
+        res.json({
+            success: true
+        });
+    });
+});
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

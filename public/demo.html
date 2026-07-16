@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Last Letter Demo</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#faf7f2;
+    font-family:sans-serif;
+}
+
+.box{
+    width:340px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:30px;
+    background:#c79b6d;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+small{
+    display:block;
+    margin-top:20px;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🌸 Last Letter</h2>
+
+<p>デモ版へようこそ</p>
+
+<input
+id="code"
+placeholder="アクセスコード">
+
+<button type="button" id="enterDemoButton">
+    入る
+</button>
+
+<small>
+
+現在は開発中のデモ版です。<br>
+
+個人情報は入力しないでください。
+
+</small>
+
+</div>
+
+<script src="js/demo.js"></script>
+
+</body>
+</html>

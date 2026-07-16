@@ -1,3 +1,10 @@
+document.addEventListener("DOMContentLoaded", async () => {
+    const allowed = await checkDemoAccess();
+
+    if (!allowed) {
+        return;
+    }
+
 document.addEventListener("DOMContentLoaded", () => {
     const registerButton =
         document.getElementById("registerButton");
@@ -76,4 +83,5 @@ document.addEventListener("DOMContentLoaded", () => {
             registerButton.textContent = "登録する";
         }
     };
+});
 });

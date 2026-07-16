@@ -1,3 +1,10 @@
+document.addEventListener("DOMContentLoaded", async () => {
+    const allowed = await checkDemoAccess();
+
+    if (!allowed) {
+        return;
+    }
+
 document.addEventListener("DOMContentLoaded", () => {
     const loginButton =
         document.getElementById("loginButton");
@@ -60,4 +67,5 @@ document.addEventListener("DOMContentLoaded", () => {
             loginButton.click();
         }
     });
+});
 });
