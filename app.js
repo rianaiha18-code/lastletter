@@ -24,6 +24,13 @@ app.use(
         }
     })
 );
+app.get("/", (req, res) => {
+    if (req.session.demoAccess) {
+        return res.redirect("/auth/login.html");
+    }
+
+    return res.redirect("/demo.html");
+});
 
 // publicフォルダ内のHTML・CSS・JS・画像を公開
 app.use(express.static(path.join(__dirname, "public")));
