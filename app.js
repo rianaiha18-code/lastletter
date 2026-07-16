@@ -26,7 +26,7 @@ app.use(
 );
 app.get("/", (req, res) => {
     if (req.session.demoAccess) {
-        return res.redirect("/auth/login.html");
+        return res.redirect("/auth/index.html");
     }
 
     return res.redirect("/demo.html");
