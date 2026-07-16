@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const session = require("express-session");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // JSON形式のデータを受け取れるようにする
 app.use(express.json());
@@ -728,6 +728,6 @@ app.post("/api/logout", (req, res) => {
         });
     });
 });
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is running on port ${PORT}`);
 });
