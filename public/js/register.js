@@ -27,10 +27,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const confirmPassword = confirmPasswordInput.value;
 
         if (!username || !email || !password || !confirmPassword) {
             alert("すべての項目を入力してください");
+            return;
+        }
+        if (!emailPattern.test(email)) {
+            alert("有効なメールアドレスを入力してください");
+            emailInput.focus();
             return;
         }
 

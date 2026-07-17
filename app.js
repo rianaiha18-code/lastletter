@@ -519,6 +519,14 @@ app.post("/api/register", async (req, res) => {
                 message: "すべての項目を入力してください"
             });
         }
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(normalizedEmail)) {
+            return res.status(400).json({
+                success: false,
+                message: "有効なメールアドレスを入力してください"
+            });
+        }
 
         if (password !== confirmPassword) {
             return res.status(400).json({
