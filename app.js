@@ -919,6 +919,38 @@ app.post("/api/demo-logout", (req, res) => {
         });
     });
 });
+const createDigitalAssetsTable = `
+    CREATE TABLE IF NOT EXISTS digital_assets (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        category VARCHAR(50) NOT NULL,
+        title VARCHAR(255),
+        value1 TEXT,
+        value2 TEXT,
+        value3 TEXT,
+        memo TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id)
+            REFERENCES users(id)
+            ON DELETE CASCADE
+    )
+`;
+
+db.query(createDigitalAssetsTable, (error) => {
+    if (error) {
+        console.error(
+            "digital_assetsテーブル作成エラー:",
+            error
+        );
+        return;
+    }
+
+    console.log(
+        "digital_assetsテーブルを確認しました"
+    );
+});
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
