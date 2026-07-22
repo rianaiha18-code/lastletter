@@ -1590,3 +1590,22 @@ opacity:1;
     color: #75675c;
     font-size: 13px;
 }
+.logout-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.logout-item .menu-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

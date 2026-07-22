@@ -765,7 +765,7 @@ app.post("/api/login", async (req, res) => {
         });
     }
 });
-app.get("/api/me", (req, res) => {
+app.get("/api/me", async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({
             success: false,
@@ -773,11 +773,43 @@ app.get("/api/me", (req, res) => {
         });
     }
 
-    res.json({
-        success: true,
-        userId: req.session.userId,
-        username: req.session.username
-    });
+    try {
+        const [rows] = await pool.execute(
+            `
+            SELECT
+                id,
+                username,
+                email
+            FROM users
+            WHERE id = ?
+            LIMIT 1
+            `,
+            [req.session.userId]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "ユーザーが見つかりません"
+            });
+        }
+
+        res.json({
+            success: true,
+            user: {
+                id: rows[0].id,
+                name: rows[0].username,
+                email: rows[0].email
+            }
+        });
+    } catch (error) {
+        console.error("ユーザー情報取得エラー:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "ユーザー情報の取得に失敗しました"
+        });
+    }
 });
 app.get("/api/recipients", async (req, res) => {
     try {

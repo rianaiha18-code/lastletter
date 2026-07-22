@@ -35,7 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const user = data.user || data;
 
             if (userName) {
-                userName.textContent = user.name || "名前未設定";
+                userName.textContent =
+                    user.name ||
+                    user.username ||
+                    "名前未設定";
             }
 
             if (userEmail) {
