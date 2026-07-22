@@ -892,39 +892,6 @@ function requireLogin(req, res, next) {
 
     next();
 }
-app.post(
-    "/api/funeral-photo",
-    requireLogin,
-    upload.single("photo"),
-    async (req, res) => {
-        try {
-            if (!req.file) {
-                return res.status(400).json({
-                    success: false,
-                    message: "画像ファイルを選択してください"
-                });
-            }
-
-            const result = await uploadImageToCloudinary(
-                req.file.buffer,
-                req.session.userId
-            );
-
-            res.json({
-                success: true,
-                photoUrl: result.secure_url
-            });
-
-        } catch (error) {
-            console.error("葬儀写真アップロードエラー:", error);
-
-            res.status(500).json({
-                success: false,
-                message: "画像のアップロードに失敗しました"
-            });
-        }
-    }
-);
 app.get("/api/demo-access", (req, res) => {
     if (!req.session.demoAccess) {
         return res.status(403).json({
