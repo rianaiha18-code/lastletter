@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-
+    lucide.createIcons();
     await checkLogin();
 
     const saveButton = document.getElementById("saveFuneralButton");
