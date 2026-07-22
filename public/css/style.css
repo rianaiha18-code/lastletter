@@ -1914,3 +1914,274 @@ opacity:1;
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+/* ==========================
+   マイページ・設定をホーム風に統一
+========================== */
+
+.mypage-page,
+.setting-page {
+    color: #8d6646;
+}
+
+/* 見出し */
+.app-header h1 {
+    color: #8d6646;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* メニュー全体 */
+.menu-section,
+.setting-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ホームのカードに近づける */
+.menu-item {
+    width: 100%;
+    min-height: 78px;
+    padding: 0 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #ffffff;
+    border: 1px solid #ead8c7;
+    border-radius: 16px;
+
+    color: #8d6646;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 600;
+
+    box-sizing: border-box;
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+/* ホバー */
+.menu-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(141, 102, 70, 0.12);
+    border-color: #d8b99d;
+    background: #fffdfb;
+}
+
+/* 押した時 */
+.menu-item:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+/* 左側 */
+.menu-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* 左アイコン */
+.menu-label svg {
+    width: 25px;
+    height: 25px;
+    color: #8d6646;
+    stroke-width: 1.8;
+    flex-shrink: 0;
+}
+
+/* 右矢印 */
+.menu-item > svg {
+    width: 18px;
+    height: 18px;
+    color: #a8866c;
+    stroke-width: 2;
+    flex-shrink: 0;
+
+    transition: transform 0.2s ease;
+}
+
+.menu-item:hover > svg {
+    transform: translateX(4px);
+}
+
+/* ログアウト */
+.logout-item {
+    appearance: none;
+    text-align: left;
+    background: #ffffff;
+    color: #8d6646;
+}
+
+/* アカウント削除だけ赤系 */
+.delete-account-item {
+    appearance: none;
+    text-align: left;
+}
+
+.delete-account-item .menu-label {
+    color: #b75f5f;
+}
+
+.delete-account-item .menu-label svg {
+    color: #b75f5f;
+}
+
+.delete-account-item:hover {
+    border-color: #dca9a9;
+    background: #fffafa;
+}
+
+/* プロフィール */
+.profile-card {
+    border: 1px solid #ead8c7;
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+.profile-card h2 {
+    color: #8d6646;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.profile-card p {
+    color: #aa8d78;
+}
+
+/* プロフィール画像 */
+.profile-image {
+    background: #efe4d8;
+    color: #8d6646;
+}
+
+.profile-image svg {
+    width: 34px;
+    height: 34px;
+    stroke-width: 1.8;
+}
+
+/* フッター */
+.bottom-nav a {
+    color: #aa8d78;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.bottom-nav a:hover {
+    color: #8d6646;
+    transform: translateY(-2px);
+}
+
+.bottom-nav a.active {
+    color: #8d6646;
+    font-weight: 700;
+}
+
+.bottom-nav .nav-icon {
+    width: 25px;
+    height: 25px;
+    stroke-width: 1.8;
+}
+
+@media screen and (max-width: 768px) {
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
+
+.demo-auth-screen {
+    width: 100%;
+    min-height: 100dvh;
+    padding: 24px 16px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fffaf5;
+}
+
+.demo-auth-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 28px 20px;
+
+    background: #ffffff;
+    border: 1px solid #ead8c7;
+    border-radius: 18px;
+
+    box-sizing: border-box;
+}
+
+.demo-auth-card input {
+    width: 100%;
+    min-width: 0;
+    height: 50px;
+    padding: 0 14px;
+
+    border: 1px solid #ddc9b8;
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.demo-auth-card button {
+    width: 100%;
+    min-height: 50px;
+    box-sizing: border-box;
+}
+@media screen and (max-width: 480px) {
+    .demo-auth-screen {
+        min-height: 100dvh;
+        padding: 16px;
+        align-items: flex-start;
+    }
+
+    .demo-auth-card {
+        margin-top: 48px;
+        padding: 24px 18px;
+        border-radius: 16px;
+    }
+
+    .demo-auth-card h1 {
+        font-size: 22px;
+    }
+
+    .demo-auth-card p {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+}
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
