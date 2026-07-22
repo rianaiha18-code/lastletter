@@ -919,6 +919,135 @@ app.post("/api/demo-logout", (req, res) => {
         });
     });
 });
+// ==================================================
+// デジタル資産・契約情報を取得
+// ==================================================
+app.get("/api/assets", async (req, res) => {
+    try {
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "ログインしてください"
+            });
+        }
+
+        const [rows] = await pool.query(
+            `
+            SELECT
+                id,
+                category,
+                title,
+                value1,
+                value2,
+                value3,
+                memo
+            FROM digital_assets
+            WHERE user_id = ?
+            ORDER BY id ASC
+            `,
+            [userId]
+        );
+
+        return res.json({
+            success: true,
+            assets: rows
+        });
+
+    } catch (error) {
+        console.error(
+            "デジタル資産取得エラー:",
+            error
+        );
+
+        return res.status(500).json({
+            success: false,
+            message:
+                "デジタル資産情報を読み込めませんでした"
+        });
+    }
+});
+
+
+// ==================================================
+// デジタル資産・契約情報を一括保存
+// ==================================================
+app.put("/api/assets", async (req, res) => {
+    try {
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "ログインしてください"
+            });
+        }
+
+        const assets = req.body.assets;
+
+        if (!Array.isArray(assets)) {
+            return res.status(400).json({
+                success: false,
+                message: "保存するデータの形式が正しくありません"
+            });
+        }
+
+        // 現在のユーザーの登録内容をいったん削除
+        await pool.query(
+            `
+            DELETE FROM digital_assets
+            WHERE user_id = ?
+            `,
+            [userId]
+        );
+
+        // 入力内容を1件ずつ保存
+        for (const asset of assets) {
+            await pool.query(
+                `
+                INSERT INTO digital_assets (
+                    user_id,
+                    category,
+                    title,
+                    value1,
+                    value2,
+                    value3,
+                    memo
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                `,
+                [
+                    userId,
+                    asset.category || "",
+                    asset.title || "",
+                    asset.value1 || "",
+                    asset.value2 || "",
+                    asset.value3 || "",
+                    asset.memo || ""
+                ]
+            );
+        }
+
+        return res.json({
+            success: true,
+            message:
+                "デジタル資産情報を保存しました"
+        });
+
+    } catch (error) {
+        console.error(
+            "デジタル資産保存エラー:",
+            error
+        );
+
+        return res.status(500).json({
+            success: false,
+            message:
+                "デジタル資産情報の保存に失敗しました"
+        });
+    }
+});
 const createDigitalAssetsTable = `
     CREATE TABLE IF NOT EXISTS digital_assets (
         id INT AUTO_INCREMENT PRIMARY KEY,

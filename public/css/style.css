@@ -1361,3 +1361,37 @@ opacity:1;
     height:22px;
     stroke-width:2;
 }
+.asset-entry {
+    position: relative;
+}
+
+.asset-entry + .asset-entry {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #ead9cb;
+}
+
+.delete-entry {
+    display: block;
+    margin: 0 0 14px auto;
+    padding: 6px 12px;
+
+    border: 1px solid #b97a70;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #a45f56;
+
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.delete-entry:hover {
+    background: #fff4f1;
+}
+
+.add-button:disabled,
+.main-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
