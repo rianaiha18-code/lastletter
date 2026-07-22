@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async function loadPeople() {
         try {
+            people = [];
+            renderPeople();
+
             const response = await fetch("/api/recipients");
             const data = await response.json();
 
@@ -51,6 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             }));
 
             renderPeople();
+
         } catch (error) {
             console.error("相手一覧取得エラー:", error);
             showToast("相手一覧を読み込めませんでした");
