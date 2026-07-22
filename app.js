@@ -1365,7 +1365,125 @@ app.get("/api/access-codes", async (req, res) => {
     }
 
 });
+app.put("/api/change-password", async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({
+            success: false,
+            message: "ログインしていません"
+        });
+    }
 
+    const {
+        currentPassword,
+        newPassword
+    } = req.body;
+
+
+    if (!currentPassword || !newPassword) {
+        return res.status(400).json({
+            success: false,
+            message: "すべての項目を入力してください"
+        });
+    }
+
+
+    if (newPassword.length < 8) {
+        return res.status(400).json({
+            success: false,
+            message: "新しいパスワードは8文字以上で入力してください"
+        });
+    }
+
+
+    try {
+        const [rows] = await pool.execute(
+            `
+            SELECT
+                id,
+                password_hash
+            FROM users
+            WHERE id = ?
+            LIMIT 1
+            `,
+            [req.session.userId]
+        );
+
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "ユーザーが見つかりません"
+            });
+        }
+
+
+        const user = rows[0];
+
+
+        const isMatch =
+            await bcrypt.compare(
+                currentPassword,
+                user.password_hash
+            );
+
+
+        if (!isMatch) {
+            return res.status(400).json({
+                success: false,
+                message: "現在のパスワードが正しくありません"
+            });
+        }
+
+
+        const isSamePassword =
+            await bcrypt.compare(
+                newPassword,
+                user.password_hash
+            );
+
+
+        if (isSamePassword) {
+            return res.status(400).json({
+                success: false,
+                message: "現在とは異なるパスワードを設定してください"
+            });
+        }
+
+
+        const hashedPassword =
+            await bcrypt.hash(newPassword, 10);
+
+
+        await pool.execute(
+            `
+            UPDATE users
+            SET password_hash = ?
+            WHERE id = ?
+            `,
+            [
+                hashedPassword,
+                req.session.userId
+            ]
+        );
+
+
+        res.json({
+            success: true,
+            message: "パスワードを変更しました"
+        });
+
+    } catch (error) {
+        console.error(
+            "パスワード変更エラー:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "パスワードの変更に失敗しました"
+        });
+    }
+});
 const createDigitalAssetsTable = `
     CREATE TABLE IF NOT EXISTS digital_assets (
         id INT AUTO_INCREMENT PRIMARY KEY,
