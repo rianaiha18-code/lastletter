@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (currentPhotoUrl && photoPreview) {
                 photoPreview.src = currentPhotoUrl;
-                photoPreview.style.display = "block";
+                photoPreview.hidden = false;
             }
 
             if (ceremonyType) ceremonyType.value = saved.ceremonyType || "";
@@ -159,7 +159,7 @@ if (photoInput && photoPreview) {
         const previewUrl = URL.createObjectURL(file);
 
         photoPreview.src = previewUrl;
-        photoPreview.style.display = "block";
+        photoPreview.hidden = true;
 
         photoPreview.onload = () => {
             URL.revokeObjectURL(previewUrl);
