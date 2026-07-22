@@ -1590,22 +1590,55 @@ opacity:1;
     color: #75675c;
     font-size: 13px;
 }
-.logout-item {
-    width: 100%;
-    border: none;
-    background: transparent;
-    font-family: inherit;
-    text-align: left;
-    cursor: pointer;
-}
-
-.logout-item .menu-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
 .menu-item {
+    width: 100%;
+    min-height: 72px;
+    padding: 0 24px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    background: #ffffff;
+    border: 1px solid #ead8c7;
+    border-radius: 16px;
+
+    color: #333333;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 16px;
+
+    box-sizing: border-box;
+}
+
+.menu-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-label svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.8;
+    flex-shrink: 0;
+}
+
+.menu-item > svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+    flex-shrink: 0;
+}
+
+.logout-item {
+    appearance: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.menu-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
