@@ -1758,3 +1758,35 @@ opacity:1;
     color: #9b8a7c !important;
     font-size: 13px !important;
 }
+
+/* ==========================
+   利用規約・プライバシーポリシー
+========================== */
+
+.policy-page {
+    padding: 24px 18px 50px;
+}
+
+.policy-card {
+    margin-bottom: 16px;
+    padding: 22px;
+
+    background: #ffffff;
+    border: 1px solid #ead8c7;
+    border-radius: 16px;
+}
+
+.policy-card h2 {
+    margin: 0 0 14px;
+
+    font-size: 17px;
+    color: #8d6646;
+}
+
+.policy-card p {
+    margin: 0;
+
+    line-height: 1.9;
+    font-size: 14px;
+    color: #6b625c;
+}

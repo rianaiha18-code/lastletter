@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("/api/me");
 
             if (response.status === 401) {
-                window.location.href = "/login/login.html";
+                window.location.href = "/";
                 return;
             }
 
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             }
 
-            window.location.href = "/login/login.html";
+            window.location.href = "/";
         } catch (error) {
             console.error("ログアウトエラー:", error);
             alert("ログアウトに失敗しました。もう一度お試しください。");
