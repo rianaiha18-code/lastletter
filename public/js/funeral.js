@@ -18,7 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const familyMessage = document.getElementById("familyMessage");
     const photoInput = document.getElementById("funeralPhoto");
     const photoPreview = document.getElementById("photoPreview");
-    
+    const savedPhotoTitle = document.getElementById("savedPhotoTitle");
+    const deletePhotoButton = document.getElementById("deletePhotoButton");
+
     let currentPhotoUrl = "";
 
     if (!saveButton) {
@@ -62,11 +64,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     photoPreview.src = currentPhotoUrl;
     savedPhotoTitle.hidden = false;
     photoPreview.hidden = false;
+    deletePhotoButton.hidden = false;
 } else if (photoPreview) {
     currentPhotoUrl = "";
     photoPreview.removeAttribute("src");
     savedPhotoTitle.hidden = true;
     photoPreview.hidden = true;
+    deletePhotoButton.hidden = true;
 }
 
             if (ceremonyType) ceremonyType.value = saved.ceremonyType || "";
@@ -138,6 +142,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         currentPhotoUrl = photoUrl || "";
 
+        if (currentPhotoUrl) {
+            photoPreview.src = currentPhotoUrl;
+            photoPreview.hidden = false;
+
+            savedPhotoTitle.hidden = false;
+            deletePhotoButton.hidden = false;
+        } else {
+            photoPreview.removeAttribute("src");
+            photoPreview.hidden = true;
+
+            savedPhotoTitle.hidden = true;
+            deletePhotoButton.hidden = true;
+        }
+
         showToast("✔ 葬儀リクエストを保存しました");
 
     } catch (error) {
@@ -157,13 +175,17 @@ if (photoInput && photoPreview) {
             photoPreview.removeAttribute("src");
             savedPhotoTitle.hidden = true;
             photoPreview.hidden = true;
+            deletePhotoButton.hidden = true;
             return;
         }
 
         const previewUrl = URL.createObjectURL(file);
 
+        photoPreview.src = previewUrl;
+
         savedPhotoTitle.hidden = false;
         photoPreview.hidden = false;
+        deletePhotoButton.hidden = false;
 
         photoPreview.onload = () => {
             URL.revokeObjectURL(previewUrl);
@@ -192,5 +214,24 @@ if (photoInput && photoPreview) {
 
     return data.photoUrl;
 }
+deletePhotoButton.addEventListener("click", () => {
+
+    if (!confirm("現在登録されている遺影を削除しますか？")) {
+        return;
+    }
+
+    currentPhotoUrl = "";
+
+    photoPreview.removeAttribute("src");
+    photoPreview.hidden = true;
+
+    savedPhotoTitle.hidden = true;
+    deletePhotoButton.hidden = true;
+
+    funeralPhoto.value = "";
+
+    showToast("画像を削除しました。保存すると反映されます。");
+
+});
     loadFuneralRequest();
 });

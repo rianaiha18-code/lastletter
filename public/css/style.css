@@ -1327,3 +1327,17 @@ opacity:1;
     font-weight: 600;
     color: #666;
 }
+.delete-photo-button{
+    margin-top:10px;
+    background:#fff;
+    color:#d9534f;
+    border:1px solid #d9534f;
+    border-radius:8px;
+    padding:8px 14px;
+    cursor:pointer;
+}
+
+.delete-photo-button:hover{
+    background:#d9534f;
+    color:#fff;
+}
