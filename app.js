@@ -1294,6 +1294,45 @@ app.put("/api/trusted", async (req, res) => {
     }
 
 });
+app.get("/api/access-codes", async (req, res) => {
+
+    if (!req.session.userId) {
+        return res.status(401).json({
+            success: false
+        });
+    }
+
+    try {
+
+        const [codes] = await pool.execute(
+            `
+            SELECT
+                name,
+                relation,
+                view_code
+            FROM recipients
+            WHERE user_id = ?
+            ORDER BY id
+            `,
+            [req.session.userId]
+        );
+
+        res.json({
+            success: true,
+            codes
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        res.status(500).json({
+            success: false
+        });
+
+    }
+
+});
 
 const createDigitalAssetsTable = `
     CREATE TABLE IF NOT EXISTS digital_assets (
