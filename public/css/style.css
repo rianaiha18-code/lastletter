@@ -536,13 +536,22 @@ width:100%;
 }
 
 .add-button{
-    width:auto;
-    height:34px;
-    padding:0 14px;
-    border-radius:17px;
-    font-size:13px;
-    background:#9f7c5d;
-    color:white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: auto;
+    min-width: 88px;
+    height: 34px;
+    padding: 0 14px;
+
+    border-radius: 17px;
+
+    background: #9f7c5d;
+    color: white;
+    font-size: 13px;
+
+    white-space: nowrap;
 }
 
 .person-card{
