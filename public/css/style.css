@@ -1320,3 +1320,10 @@ opacity:1;
     border:1px solid #ccc;
     margin-top:10px;
 }
+.saved-photo-title {
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+}

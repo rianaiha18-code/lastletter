@@ -60,10 +60,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     photoPreview
 ) {
     photoPreview.src = currentPhotoUrl;
+    savedPhotoTitle.hidden = false;
     photoPreview.hidden = false;
 } else if (photoPreview) {
     currentPhotoUrl = "";
     photoPreview.removeAttribute("src");
+    savedPhotoTitle.hidden = true;
     photoPreview.hidden = true;
 }
 
@@ -153,13 +155,14 @@ if (photoInput && photoPreview) {
 
         if (!file) {
             photoPreview.removeAttribute("src");
+            savedPhotoTitle.hidden = true;
             photoPreview.hidden = true;
             return;
         }
 
         const previewUrl = URL.createObjectURL(file);
 
-        photoPreview.src = previewUrl;
+        savedPhotoTitle.hidden = false;
         photoPreview.hidden = false;
 
         photoPreview.onload = () => {
