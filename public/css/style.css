@@ -1312,3 +1312,11 @@ opacity:1;
     font-size:13px;
     line-height:1.7;
 }
+.photo-preview img{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin-top:10px;
+}

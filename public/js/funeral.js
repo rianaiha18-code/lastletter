@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const keepItems = document.getElementById("keepItems");
     const discardItems = document.getElementById("discardItems");
     const familyMessage = document.getElementById("familyMessage");
+    const photoInput = document.getElementById("funeralPhoto");
+    const photoPreview = document.getElementById("photoPreview");
 
     if (!saveButton) {
         console.error("保存ボタンが見つかりません");
@@ -104,6 +106,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             showToast(error.message || "保存に失敗しました");
         }
     };
+    photoInput.addEventListener("change", () => {
+        const file = photoInput.files[0];
 
+        if (!file) return;
+
+        photoPreview.src = URL.createObjectURL(file);
+        photoPreview.style.display = "block";
+    });
     loadFuneralRequest();
 });

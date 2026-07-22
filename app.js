@@ -5,9 +5,62 @@ const path = require("path");
 const pool = require("./db");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
+const multer = require("multer");
+const { v2: cloudinary } = require("cloudinary");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    },
+    fileFilter: (req, file, callback) => {
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        if (!allowedTypes.includes(file.mimetype)) {
+            return callback(
+                new Error(
+                    "JPEG、PNG、WebP形式の画像を選択してください"
+                )
+            );
+        }
+
+        callback(null, true);
+    }
+});
+function uploadImageToCloudinary(fileBuffer, userId) {
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            {
+                folder: "lastletter/funeral-photos",
+                public_id: `user-${userId}-${Date.now()}`,
+                resource_type: "image"
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+
+                resolve(result);
+            }
+        );
+
+        uploadStream.end(fileBuffer);
+    });
+}
 
 // JSON形式のデータを受け取れるようにする
 app.use(express.json());
@@ -452,6 +505,14 @@ app.put("/api/funeral-request", async (req, res) => {
         });
     }
 });
+app.post(
+    "/api/funeral-photo",
+    requireLogin,
+    upload.single("photo"),
+    async (req, res) => {
+        // 写真アップロード処理
+    }
+);
 app.delete("/api/recipients/:id", async (req, res) => {
     try {
         const recipientId = Number(req.params.id);
@@ -783,6 +844,16 @@ function requireDemoAccess(req, res, next) {
         return res.status(403).json({
             success: false,
             message: "デモアクセス認証が必要です"
+        });
+    }
+
+    next();
+}
+function requireLogin(req, res, next) {
+    if (!req.session.userId) {
+        return res.status(401).json({
+            success: false,
+            message: "ログインしてください"
         });
     }
 
