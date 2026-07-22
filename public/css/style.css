@@ -1487,3 +1487,106 @@ opacity:1;
     width: 100%;
     margin-top: 24px;
 }
+
+.access-code-page {
+    padding: 20px;
+}
+
+.access-code-card {
+    position: relative;
+    margin-bottom: 16px;
+    padding: 18px;
+    border: 1px solid #eadfd3;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.access-code-person {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.access-code-person svg {
+    width: 21px;
+    height: 21px;
+    color: #9f7c5d;
+}
+
+.access-code-person h2 {
+    margin: 0;
+    color: #2d2925;
+    font-size: 16px;
+}
+
+.access-code-label {
+    margin: 0 0 7px;
+    color: #75675c;
+    font-size: 12px;
+}
+
+.access-code-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.access-code-value {
+    flex: 1;
+    margin: 0;
+    padding: 12px;
+    border: 1px solid #eadfd3;
+    border-radius: 8px;
+    background: #faf7f3;
+    color: #2d2925;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.copy-code-button {
+    flex-shrink: 0;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid #9f7c5d;
+    border-radius: 8px;
+    background: #fff;
+    color: #7e6046;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.copy-code-button:hover {
+    background: #f5eee8;
+}
+
+.empty-state {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.empty-state svg {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 12px;
+    color: #9f7c5d;
+}
+
+.empty-state p {
+    margin-bottom: 20px;
+    color: #75675c;
+    line-height: 1.7;
+}
+
+.empty-state .main-button {
+    display: block;
+    text-decoration: none;
+}
+.access-code-relation {
+    margin: 4px 0 0;
+    color: #75675c;
+    font-size: 13px;
+}

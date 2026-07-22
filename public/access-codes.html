@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>閲覧コード一覧 | Last Letter</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+</head>
+
+<body>
+
+<main class="app-screen">
+
+    <header class="app-header">
+
+        <a
+            href="/mypage.html"
+            class="back-button"
+            aria-label="マイページへ戻る"
+        >
+            ‹
+        </a>
+
+        <h1>閲覧コード一覧</h1>
+
+    </header>
+
+
+    <section class="access-code-page">
+
+        <p class="section-description">
+            大切な人ごとに発行された閲覧コードを確認できます。
+            必要に応じてコピーし、信頼できる人へ共有してください。
+        </p>
+
+
+        <!-- JSで閲覧コードを表示 -->
+        <div id="accessCodeList"></div>
+
+
+        <!-- 登録がない場合 -->
+        <div
+            id="emptyAccessCodes"
+            class="empty-state"
+            hidden
+        >
+            <i data-lucide="key-round"></i>
+
+            <p>
+                まだ閲覧コードが発行されていません。
+            </p>
+
+            <a
+                href="/message/message.html"
+                class="main-button"
+            >
+                メッセージを登録する
+            </a>
+        </div>
+
+    </section>
+
+
+    <!-- コピー完了メッセージ -->
+    <div
+        id="toast"
+        class="toast"
+    ></div>
+
+
+    <footer class="bottom-nav">
+
+        <a href="/home/home.html">
+            <i
+                data-lucide="house"
+                class="nav-icon"
+            ></i>
+            <p>ホーム</p>
+        </a>
+
+        <a
+            href="/mypage.html"
+            class="active"
+        >
+            <i
+                data-lucide="user-round"
+                class="nav-icon"
+            ></i>
+            <p>マイページ</p>
+        </a>
+
+        <a href="/setting.html">
+            <i
+                data-lucide="settings"
+                class="nav-icon"
+            ></i>
+            <p>設定</p>
+        </a>
+
+    </footer>
+
+</main>
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="/js/access-codes.js"></script>
+
+</body>
+
+</html>

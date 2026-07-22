@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>マイページ | Last Letter</title>
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -12,78 +14,91 @@
 <main class="app-screen">
 
     <header class="app-header">
-        <a href="/home/home.html" class="back-button">‹</a>
+        <a
+            href="/home/home.html"
+            class="back-button"
+            aria-label="ホームへ戻る"
+        >
+            ‹
+        </a>
+
         <h1>マイページ</h1>
     </header>
 
-    <!-- プロフィール -->
 
+    <!-- プロフィール -->
     <section class="profile-card">
 
         <div class="profile-image">
-            👤
+            <i data-lucide="user-round"></i>
         </div>
 
-        <h2>山田 太郎</h2>
+        <h2 id="userName">読み込み中...</h2>
 
-        <p>sample@example.com</p>
-
-        <button class="sub-button">
-            プロフィールを編集
-        </button>
+        <p id="userEmail"></p>
 
     </section>
 
-    <!-- アカウント -->
 
+    <!-- メニュー -->
     <section class="menu-section">
 
-        <a href="#" class="menu-item">
-            <span>🪪 プロフィール情報</span>
-            <span>›</span>
+        <a
+            href="/access-codes.html"
+            class="menu-item"
+        >
+            <span class="menu-label">
+                <i data-lucide="key-round"></i>
+                閲覧コード一覧
+            </span>
+
+            <i data-lucide="chevron-right"></i>
         </a>
 
-        <a href="#" class="menu-item">
-            <span>📄 閲覧コード一覧</span>
-            <span>›</span>
-        </a>
-
-        <a href="#" class="menu-item">
-            <span>📨 通知履歴</span>
-            <span>›</span>
-        </a>
 
         <button
             type="button"
             class="menu-item logout-item"
-            id="logoutButton">
-            <span>🚪 ログアウト</span>
-            <span>›</span>
+            id="logoutButton"
+        >
+            <span class="menu-label">
+                <i data-lucide="log-out"></i>
+                ログアウト
+            </span>
+
+            <i data-lucide="chevron-right"></i>
         </button>
 
     </section>
 
+
     <footer class="bottom-nav">
 
         <a href="/home/home.html">
-            <span>⌂</span>
+            <i data-lucide="house" class="nav-icon"></i>
             <p>ホーム</p>
         </a>
 
         <a href="/mypage.html" class="active">
-            <span>👤</span>
+            <i data-lucide="user-round" class="nav-icon"></i>
             <p>マイページ</p>
         </a>
 
         <a href="/setting.html">
-            <span>⚙</span>
+            <i data-lucide="settings" class="nav-icon"></i>
             <p>設定</p>
         </a>
 
     </footer>
 
 </main>
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
 <script src="/js/auth.js"></script>
+<script src="/js/mypage.js"></script>
 <script src="/js/logout.js"></script>
+
 </body>
 </html>
