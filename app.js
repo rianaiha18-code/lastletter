@@ -1048,6 +1048,118 @@ app.put("/api/assets", async (req, res) => {
         });
     }
 });
+app.get("/api/contacts", async (req, res) => {
+
+    if (!req.session.userId) {
+        return res.status(401).json({
+            success: false
+        });
+    }
+
+    try {
+
+        const [contacts] = await pool.query(
+
+            `
+            SELECT
+                name,
+                relation,
+                phone,
+                email,
+                instagram,
+                sns,
+                memo
+            FROM contacts
+            WHERE user_id = ?
+            ORDER BY id
+            `,
+            [req.session.userId]
+
+        );
+
+        res.json({
+            success: true,
+            contacts
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false
+        });
+
+    }
+
+});
+app.put("/api/contacts", async (req, res) => {
+
+    if (!req.session.userId) {
+        return res.status(401).json({
+            success: false
+        });
+    }
+
+    const { contacts } = req.body;
+
+    try {
+
+        await pool.query(
+            "DELETE FROM contacts WHERE user_id = ?",
+            [req.session.userId]
+        );
+
+        for (const contact of contacts) {
+
+            await pool.query(
+
+                `
+                INSERT INTO contacts
+                (
+                    user_id,
+                    name,
+                    relation,
+                    phone,
+                    email,
+                    instagram,
+                    sns,
+                    memo
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                `,
+
+                [
+                    req.session.userId,
+
+                    contact.name,
+                    contact.relation,
+                    contact.phone,
+                    contact.email,
+                    contact.instagram,
+                    contact.sns,
+                    contact.memo
+                ]
+
+            );
+
+        }
+
+        res.json({
+            success: true
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false
+        });
+
+    }
+
+});
 const createDigitalAssetsTable = `
     CREATE TABLE IF NOT EXISTS digital_assets (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1063,10 +1175,40 @@ const createDigitalAssetsTable = `
             ON UPDATE CURRENT_TIMESTAMP
     )
 `;
+const createContactsTable = `
+CREATE TABLE IF NOT EXISTS contacts (
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    user_id INT NOT NULL,
+
+    name VARCHAR(100),
+
+    relation VARCHAR(100),
+
+    phone VARCHAR(30),
+
+    email VARCHAR(255),
+
+    instagram VARCHAR(100),
+
+    sns VARCHAR(255),
+
+    memo TEXT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+
+);
+`;
 
 async function initializeDatabase() {
     try {
         await pool.query(createDigitalAssetsTable);
+        await pool.query(createContactsTable);
 
         console.log(
             "digital_assetsテーブルを確認しました"
