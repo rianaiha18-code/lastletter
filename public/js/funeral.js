@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const familyMessage = document.getElementById("familyMessage");
     const photoInput = document.getElementById("funeralPhoto");
     const photoPreview = document.getElementById("photoPreview");
+    
     let currentPhotoUrl = "";
 
     if (!saveButton) {
@@ -53,10 +54,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             const saved = data.funeralRequest;
             currentPhotoUrl = saved.funeralPhoto || saved.photo || "";
 
-            if (currentPhotoUrl && photoPreview) {
-                photoPreview.src = currentPhotoUrl;
-                photoPreview.hidden = false;
-            }
+            if (
+    currentPhotoUrl &&
+    /^https?:\/\//.test(currentPhotoUrl) &&
+    photoPreview
+) {
+    photoPreview.src = currentPhotoUrl;
+    photoPreview.hidden = false;
+} else if (photoPreview) {
+    currentPhotoUrl = "";
+    photoPreview.removeAttribute("src");
+    photoPreview.hidden = true;
+}
 
             if (ceremonyType) ceremonyType.value = saved.ceremonyType || "";
             if (funeralScale) funeralScale.value = saved.funeralScale || "";
@@ -143,23 +152,23 @@ if (photoInput && photoPreview) {
         const file = photoInput.files[0];
 
         if (!file) {
-            if (currentPhotoUrl) {
-                photoPreview.src = currentPhotoUrl;
-                photoPreview.style.display = "block";
-            }
+            photoPreview.removeAttribute("src");
+            photoPreview.hidden = true;
             return;
         }
 
         if (!file.type.startsWith("image/")) {
             showToast("画像ファイルを選択してください");
             photoInput.value = "";
+            photoPreview.removeAttribute("src");
+            photoPreview.hidden = true;
             return;
         }
 
         const previewUrl = URL.createObjectURL(file);
 
         photoPreview.src = previewUrl;
-        photoPreview.hidden = true;
+        photoPreview.hidden = false;
 
         photoPreview.onload = () => {
             URL.revokeObjectURL(previewUrl);
