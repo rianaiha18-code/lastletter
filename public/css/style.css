@@ -422,9 +422,9 @@ width:100%;
 }
 
 .home-icon{
-    width:32px;
-    font-size:22px;
-    color:#9f7c5d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .home-text{
@@ -1342,8 +1342,8 @@ opacity:1;
     color:#fff;
 }
 .home-icon svg{
-    width:26px;
-    height:26px;
+    width:22px;
+    height:22px;
     stroke-width:1.8;
 }
 
