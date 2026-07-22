@@ -1018,41 +1018,30 @@ document.addEventListener(
                 const originalText =
                     saveButton.textContent;
 
-                try {
-                    saveButton.disabled = true;
-                    saveButton.textContent =
-                        "保存中...";
+                saveButton.disabled = true;
+                saveButton.textContent = "保存中...";
 
-                    const assets =
-                        collectAssets();
+                try {
+                    const assets = collectAssets();
 
                     const response =
-                        await fetch(
-                            "/api/assets",
-                            {
-                                method: "PUT",
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body:
-                                    JSON.stringify({
-                                        assets
-                                    })
-                            }
-                        );
+                        await fetch("/api/assets", {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+                            body: JSON.stringify({
+                                assets
+                            })
+                        });
 
                     const data =
                         await response.json();
 
-                    if (
-                        response.status === 401
-                    ) {
+                    if (response.status === 401) {
                         window.location.href =
-                            "/login.html";
-
+                            "/正しいログイン画面のパス";
                         return;
                     }
 
@@ -1070,8 +1059,14 @@ document.addEventListener(
                         "✔ デジタル資産情報を保存しました"
                     );
 
-                    // 保存後、DBの内容を再取得
-                    await loadAssets();
+                    try {
+                        await loadAssets();
+                    } catch (loadError) {
+                        console.error(
+                            "保存後の再読み込みエラー:",
+                            loadError
+                        );
+                    }
 
                 } catch (error) {
                     console.error(
@@ -1085,9 +1080,7 @@ document.addEventListener(
                     );
 
                 } finally {
-                    saveButton.disabled =
-                        false;
-
+                    saveButton.disabled = false;
                     saveButton.textContent =
                         originalText;
                 }
