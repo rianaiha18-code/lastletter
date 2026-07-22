@@ -1395,3 +1395,86 @@ opacity:1;
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+.contact-form {
+    padding: 20px;
+}
+
+.section-description {
+    margin: 0 0 18px;
+    color: #6f6258;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.contact-card {
+    position: relative;
+    border: 1px solid #eadfd3;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: white;
+}
+
+.contact-card + .contact-card {
+    margin-top: 16px;
+}
+
+.contact-card label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #2d2925;
+}
+
+.contact-card label:first-child {
+    margin-top: 0;
+}
+
+.contact-card input,
+.contact-card textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #eadfd3;
+    border-radius: 8px;
+    padding: 11px;
+    font-size: 14px;
+    background: white;
+}
+
+.contact-card textarea {
+    min-height: 95px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.contact-card input:focus,
+.contact-card textarea:focus {
+    outline: none;
+    border-color: #b8906d;
+    box-shadow: 0 0 0 2px rgba(184, 144, 109, 0.15);
+}
+
+.contact-card .delete-button {
+    display: block;
+    margin: 14px 0 0 auto;
+    padding: 8px 16px;
+    border: 1px solid #d9a5a5;
+    border-radius: 8px;
+    background: #fff7f7;
+    color: #b45f5f;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.contact-card .delete-button:hover {
+    background: #fbeaea;
+}
+
+#saveContactButton {
+    width: 100%;
+    margin-top: 24px;
+}
