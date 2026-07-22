@@ -931,26 +931,32 @@ const createDigitalAssetsTable = `
         memo TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id)
-            REFERENCES users(id)
-            ON DELETE CASCADE
+            ON UPDATE CURRENT_TIMESTAMP
     )
 `;
 
-db.query(createDigitalAssetsTable, (error) => {
-    if (error) {
+async function initializeDatabase() {
+    try {
+        await pool.query(createDigitalAssetsTable);
+
+        console.log(
+            "digital_assetsテーブルを確認しました"
+        );
+
+        app.listen(PORT, () => {
+            console.log(
+                `Server running on port ${PORT}`
+            );
+        });
+
+    } catch (error) {
         console.error(
-            "digital_assetsテーブル作成エラー:",
+            "データベース初期化エラー:",
             error
         );
-        return;
-    }
 
-    console.log(
-        "digital_assetsテーブルを確認しました"
-    );
-});
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+        process.exit(1);
+    }
+}
+
+initializeDatabase();
