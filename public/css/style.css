@@ -1341,3 +1341,14 @@ opacity:1;
     background:#d9534f;
     color:#fff;
 }
+.home-icon svg{
+    width:26px;
+    height:26px;
+    stroke-width:1.8;
+}
+
+.bottom-nav svg{
+    width:22px;
+    height:22px;
+    stroke-width:2;
+}

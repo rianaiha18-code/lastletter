@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ホーム | Last Letter</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
@@ -24,31 +26,41 @@
         <section class="home-menu">
 
             <a href="/home/message.html" class="home-card">
-                <span class="home-icon">☷</span>
+                <span class="home-icon">
+                    <i data-lucide="mail-heart"></i>
+                </span>
                 <span class="home-text">遺書・メッセージ</span>
                 <span class="home-arrow">›</span>
             </a>
 
             <a href="/home/funeral.html" class="home-card">
-                <span class="home-icon">✿</span>
+                <span class="home-icon">
+                    <i data-lucide="flower-2"></i>
+                </span>
                 <span class="home-text">葬儀リクエスト</span>
                 <span class="home-arrow">›</span>
             </a>
 
             <a href="/home/asset.html" class="home-card">
-                <span class="home-icon">▣</span>
+                <span class="home-icon">
+                    <i data-lucide="laptop"></i>
+                </span>
                 <span class="home-text">デジタル資産・契約情報</span>
                 <span class="home-arrow">›</span>
             </a>
 
             <a href="/home/contact.html" class="home-card">
-                <span class="home-icon">♙</span>
+                <span class="home-icon">
+                    <i data-lucide="users"></i>
+                </span>
                 <span class="home-text">大切な人リスト</span>
                 <span class="home-arrow">›</span>
             </a>
 
             <a href="/home/trusted.html" class="home-card">
-                <span class="home-icon">♤</span>
+                <span class="home-icon">
+                    <i data-lucide="shield-check"></i>
+                </span>
                 <span class="home-text">信頼できる人</span>
                 <span class="home-arrow">›</span>
             </a>
@@ -57,17 +69,17 @@
 
         <footer class="bottom-nav">
             <a href="/home/home.html" class="active">
-                <span>⌂</span>
+                <i data-lucide="house"></i>
                 <p>ホーム</p>
             </a>
 
             <a href="/mypage.html">
-                <span>♙</span>
+                <i data-lucide="user-round"></i>
                 <p>マイページ</p>
             </a>
 
             <a href="/setting.html">
-                <span>⚙</span>
+                <i data-lucide="settings"></i>
                 <p>設定</p>
             </a>
         </footer>
@@ -75,5 +87,8 @@
     </main>
     <script src="/js/auth.js"></script>
     <script src="/js/home.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
