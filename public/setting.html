@@ -2,8 +2,13 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>設定 | Last Letter</title>
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -12,100 +17,117 @@
 <main class="app-screen">
 
     <header class="app-header">
-        <a href="/home/home.html" class="back-button">‹</a>
+
+        <a
+            href="/home/home.html"
+            class="back-button"
+            aria-label="ホームへ戻る"
+        >
+            ‹
+        </a>
+
         <h1>設定</h1>
+
     </header>
 
-    <!-- テーマ -->
-
-    <section class="setting-card">
-
-        <h2>テーマカラー</h2>
-
-        <div class="theme-list">
-
-            <div class="theme-color beige active"></div>
-
-            <div class="theme-color blue"></div>
-
-            <div class="theme-color green"></div>
-
-            <div class="theme-color pink"></div>
-
-            <div class="theme-color purple"></div>
-
-        </div>
-
-    </section>
-
-
-    <!-- 通知 -->
 
     <section class="setting-menu">
 
-        <a href="#" class="menu-item">
+        <a
+            href="/change-password.html"
+            class="menu-item"
+        >
+            <span class="menu-label">
+                <i data-lucide="lock-keyhole"></i>
+                パスワード変更
+            </span>
 
-            <span>🔔 通知設定</span>
-
-            <span>›</span>
-
+            <i data-lucide="chevron-right"></i>
         </a>
 
-        <a href="#" class="menu-item">
 
-            <span>🔒 パスワード変更</span>
+        <a
+            href="/terms.html"
+            class="menu-item"
+        >
+            <span class="menu-label">
+                <i data-lucide="file-text"></i>
+                利用規約
+            </span>
 
-            <span>›</span>
-
+            <i data-lucide="chevron-right"></i>
         </a>
 
-        <a href="#" class="menu-item">
 
-            <span>📧 メールアドレス変更</span>
+        <a
+            href="/privacy.html"
+            class="menu-item"
+        >
+            <span class="menu-label">
+                <i data-lucide="shield-check"></i>
+                プライバシーポリシー
+            </span>
 
-            <span>›</span>
-
+            <i data-lucide="chevron-right"></i>
         </a>
 
-        <a href="#" class="menu-item">
 
-            <span>🗑 アカウント削除</span>
+        <a
+            href="/about.html"
+            class="menu-item"
+        >
+            <span class="menu-label">
+                <i data-lucide="info"></i>
+                アプリについて
+            </span>
 
-            <span>›</span>
-
+            <i data-lucide="chevron-right"></i>
         </a>
+
+
+        <button
+            type="button"
+            class="menu-item delete-account-item"
+            id="deleteAccountButton"
+        >
+            <span class="menu-label">
+                <i data-lucide="user-x"></i>
+                アカウント削除
+            </span>
+
+            <i data-lucide="chevron-right"></i>
+        </button>
 
     </section>
+
 
     <footer class="bottom-nav">
 
         <a href="/home/home.html">
-
-            <span>⌂</span>
-
+            <i data-lucide="house" class="nav-icon"></i>
             <p>ホーム</p>
-
         </a>
 
         <a href="/mypage.html">
-
-            <span>👤</span>
-
+            <i data-lucide="user-round" class="nav-icon"></i>
             <p>マイページ</p>
-
         </a>
 
-        <a href="/setting.html" class="active">
-
-            <span>⚙</span>
-
+        <a
+            href="/setting.html"
+            class="active"
+        >
+            <i data-lucide="settings" class="nav-icon"></i>
             <p>設定</p>
-
         </a>
 
     </footer>
 
 </main>
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="/js/setting.js"></script>
 
 </body>
 </html>

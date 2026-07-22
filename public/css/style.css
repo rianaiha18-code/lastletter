@@ -1642,3 +1642,19 @@ opacity:1;
     flex-direction: column;
     gap: 14px;
 }
+.setting-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px 18px 110px;
+}
+
+.delete-account-item {
+    appearance: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.delete-account-item .menu-label {
+    color: #a65f5f;
+}

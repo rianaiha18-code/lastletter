@@ -30,7 +30,10 @@ async function checkLogin() {
             return null;
         }
 
-        return await response.json();
+        const data = await response.json();
+
+        return data.user || data;
+
     } catch (error) {
         console.error("ログイン確認エラー:", error);
         location.href = "/auth/login.html";
