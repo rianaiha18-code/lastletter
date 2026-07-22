@@ -24,5 +24,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     welcomeMessage.textContent =
-        `${greeting}、${user.username}さん`;
+    `${greeting}、${user.name || user.username}さん`;
 });
