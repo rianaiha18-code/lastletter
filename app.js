@@ -507,18 +507,24 @@ app.put("/api/funeral-request", async (req, res) => {
 });
 app.post(
     "/api/funeral-photo",
-    requireLogin,
     upload.single("photo"),
     async (req, res) => {
         try {
+            const userId = req.session.userId;
+
+            if (!userId) {
+                return res.status(401).json({
+                    success: false,
+                    message: "ログインしてください"
+                });
+            }
+
             if (!req.file) {
                 return res.status(400).json({
                     success: false,
                     message: "画像ファイルを選択してください"
                 });
             }
-
-            const userId = req.session.userId;
 
             const result = await uploadImageToCloudinary(
                 req.file.buffer,

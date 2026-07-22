@@ -157,14 +157,6 @@ if (photoInput && photoPreview) {
             return;
         }
 
-        if (!file.type.startsWith("image/")) {
-            showToast("画像ファイルを選択してください");
-            photoInput.value = "";
-            photoPreview.removeAttribute("src");
-            photoPreview.hidden = true;
-            return;
-        }
-
         const previewUrl = URL.createObjectURL(file);
 
         photoPreview.src = previewUrl;
