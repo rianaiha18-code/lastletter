@@ -1,104 +1,149 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>信頼できる人 | Last Letter</title>
-    <link rel="stylesheet" href="/css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
 </head>
 
 <body>
+
     <main class="app-screen">
 
         <header class="app-header">
-            <a href="/home/home.html" class="back-button">‹</a>
+
+            <a
+                href="/home/home.html"
+                class="back-button"
+                aria-label="ホームへ戻る"
+            >
+                ‹
+            </a>
+
             <h1>信頼できる人</h1>
+
         </header>
+
 
         <section class="trusted-form">
 
             <div class="section-title-row">
+
                 <h2>閲覧コードを管理してもらう人</h2>
-                <button type="button" class="add-button">＋追加</button>
-            </div>
 
-            <div class="form-section">
-
-                <label>名前</label>
-                <input type="text" placeholder="例）山田 花子">
-
-                <label>関係</label>
-                <input type="text" placeholder="例）母、兄、親友">
-
-                <label>メールアドレス</label>
-                <input type="email" placeholder="例）sample@example.com">
-
-                <button type="button" class="main-button">
-                    信頼できる人を追加
+                <button
+                    type="button"
+                    class="add-button"
+                    id="addTrustedButton"
+                >
+                    ＋追加
                 </button>
 
             </div>
 
-            <section class="message-section">
 
-                <h2>登録済みリスト</h2>
+            <p class="section-description">
+                自分にもしものことがあった際に、閲覧コードを管理してもらう人を登録できます。
+            </p>
 
-                <div class="person-card">
-                    <div class="person-icon">👩</div>
-                    <div class="person-info">
-                        <p class="person-name">お母さん</p>
-                        <p class="person-relation">母・メール登録済み</p>
-                    </div>
-                    <span class="person-arrow">›</span>
-                </div>
 
-                <div class="person-card">
-                    <div class="person-icon">👨</div>
-                    <div class="person-info">
-                        <p class="person-name">お兄ちゃん</p>
-                        <p class="person-relation">兄・メール登録済み</p>
-                    </div>
-                    <span class="person-arrow">›</span>
-                </div>
+            <!-- JSで入力欄を追加する場所 -->
+            <div id="trustedList"></div>
 
-            </section>
 
-            <div class="code-send-box">
-                <h2>閲覧コード一覧を送信</h2>
-
-                <p>
-                    登録した信頼できる人へ、  
-                    相手ごとの閲覧コード一覧をメールで送信します。
-                </p>
-
-                <button type="button" class="main-button">
-                    閲覧コード一覧をメール送信
-                </button>
-            </div>
-
-            <button type="button" class="main-button">
+            <button
+                type="button"
+                class="main-button"
+                id="saveTrustedButton"
+            >
                 保存する
             </button>
 
+
+            <div class="code-send-box">
+
+                <h2>閲覧コード一覧を送信</h2>
+
+                <p>
+                    登録した信頼できる人へ、相手ごとの閲覧コード一覧をメールで送信します。
+                </p>
+
+                <button
+                    type="button"
+                    class="main-button"
+                    id="sendCodesButton"
+                >
+                    閲覧コード一覧をメール送信
+                </button>
+
+            </div>
+
         </section>
 
+
+        <div
+            id="toast"
+            class="toast"
+        ></div>
+
+
         <footer class="bottom-nav">
+
             <a href="/home/home.html">
-                <span>⌂</span>
+
+                <i
+                    data-lucide="house"
+                    class="nav-icon"
+                ></i>
+
                 <p>ホーム</p>
+
             </a>
+
 
             <a href="/mypage.html">
-                <span>♙</span>
+
+                <i
+                    data-lucide="user-round"
+                    class="nav-icon"
+                ></i>
+
                 <p>マイページ</p>
+
             </a>
 
+
             <a href="/setting.html">
-                <span>⚙</span>
+
+                <i
+                    data-lucide="settings"
+                    class="nav-icon"
+                ></i>
+
                 <p>設定</p>
+
             </a>
+
         </footer>
 
     </main>
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="/js/trusted.js"></script>
+
 </body>
+
 </html>

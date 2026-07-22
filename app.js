@@ -1160,6 +1160,141 @@ app.put("/api/contacts", async (req, res) => {
     }
 
 });
+
+app.get("/api/trusted", async (req, res) => {
+
+    if (!req.session.userId) {
+        return res.status(401).json({
+            success: false,
+            message: "ログインが必要です"
+        });
+    }
+
+    try {
+
+        const [trusted] = await pool.query(
+            `
+            SELECT
+                name,
+                relation,
+                email
+            FROM trusted_people
+            WHERE user_id = ?
+            ORDER BY id
+            `,
+            [req.session.userId]
+        );
+
+        res.json({
+            success: true,
+            trusted
+        });
+
+    } catch (error) {
+
+        console.error(
+            "信頼できる人の取得エラー:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "信頼できる人の取得に失敗しました"
+        });
+
+    }
+
+});
+
+app.put("/api/trusted", async (req, res) => {
+
+    if (!req.session.userId) {
+        return res.status(401).json({
+            success: false,
+            message: "ログインが必要です"
+        });
+    }
+
+    const { trusted } = req.body;
+
+    if (!Array.isArray(trusted)) {
+        return res.status(400).json({
+            success: false,
+            message: "データ形式が正しくありません"
+        });
+    }
+
+    try {
+
+        await pool.query(
+            "DELETE FROM trusted_people WHERE user_id = ?",
+            [req.session.userId]
+        );
+
+        for (const person of trusted) {
+
+            const name =
+                typeof person.name === "string"
+                    ? person.name.trim()
+                    : "";
+
+            const relation =
+                typeof person.relation === "string"
+                    ? person.relation.trim()
+                    : "";
+
+            const email =
+                typeof person.email === "string"
+                    ? person.email.trim()
+                    : "";
+
+            // 完全に空の入力欄は保存しない
+            if (!name && !relation && !email) {
+                continue;
+            }
+
+            await pool.query(
+                `
+                INSERT INTO trusted_people
+                (
+                    user_id,
+                    name,
+                    relation,
+                    email
+                )
+                VALUES (?, ?, ?, ?)
+                `,
+                [
+                    req.session.userId,
+                    name,
+                    relation,
+                    email
+                ]
+            );
+
+        }
+
+        res.json({
+            success: true,
+            message: "保存しました"
+        });
+
+    } catch (error) {
+
+        console.error(
+            "信頼できる人の保存エラー:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "信頼できる人の保存に失敗しました"
+        });
+
+    }
+
+});
+
 const createDigitalAssetsTable = `
     CREATE TABLE IF NOT EXISTS digital_assets (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1205,10 +1340,26 @@ CREATE TABLE IF NOT EXISTS contacts (
 );
 `;
 
+const createTrustedPeopleTable = `
+CREATE TABLE IF NOT EXISTS trusted_people (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(100),
+    relation VARCHAR(100),
+    email VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+`;
+    
 async function initializeDatabase() {
     try {
         await pool.query(createDigitalAssetsTable);
         await pool.query(createContactsTable);
+        await pool.query(createTrustedPeopleTable);
 
         console.log(
             "digital_assetsテーブルを確認しました"
