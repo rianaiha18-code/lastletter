@@ -27,8 +27,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         let code = "";
         for (let i = 0; i < 8; i++) {
             code += chars[Math.floor(Math.random() * chars.length)];
-        }
-        return code.slice(0, 4) + "-" + code.slice(4);
+        } 
+        return code;
+  
     }
 
     async function loadPeople() {
@@ -129,7 +130,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="person-info">
                     <p class="person-name">${person.name}</p>
                     <p class="person-relation">${person.relation}・${messageStatus}</p>
-                    <p class="person-code">閲覧コード：${person.code}</p>
+                    <p class="person-code">
+                    閲覧コード：${person.code.slice(0, 4)}-${person.code.slice(4)}
+                    </p>
                 </div>
                 <span class="person-arrow">›</span>
             `;
