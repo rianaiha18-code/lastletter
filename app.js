@@ -199,6 +199,16 @@ app.put("/api/message", async (req, res) => {
 });
 app.put("/api/recipients/:id", async (req, res) => {
     try {
+        // ログインユーザーを取得
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "ログインしてください"
+            });
+        }
+
         const recipientId = Number(req.params.id);
         const { name, relation, message } = req.body;
 
@@ -246,6 +256,7 @@ app.put("/api/recipients/:id", async (req, res) => {
             success: true,
             message: "相手情報を更新しました"
         });
+
     } catch (error) {
         console.error("相手更新エラー:", error);
 
@@ -255,6 +266,7 @@ app.put("/api/recipients/:id", async (req, res) => {
         });
     }
 });
+
 app.post("/api/recipients", async (req, res) => {
     try {
         const userId = req.session.userId;
@@ -275,6 +287,18 @@ app.post("/api/recipients", async (req, res) => {
             });
         }
 
+        // 閲覧コードは英数字8文字に統一
+        if (typeof code !== "string" ||
+            !/^[A-HJ-NP-Z2-9]{8}$/.test(code)) {
+            return res.status(400).json({
+                success: false,
+                message: "閲覧コードが正しくありません"
+            });
+        }
+
+        // 合言葉をハッシュ化
+        const keywordHash = await bcrypt.hash(keyword, 10);
+
         const [result] = await pool.execute(
             `
             INSERT INTO recipients (
@@ -292,7 +316,7 @@ app.post("/api/recipients", async (req, res) => {
                 name,
                 relation,
                 code,
-                keyword,
+                keywordHash,
                 message || ""
             ]
         );
@@ -302,6 +326,7 @@ app.post("/api/recipients", async (req, res) => {
             id: result.insertId,
             message: "相手を登録しました"
         });
+
     } catch (error) {
         console.error("相手登録エラー:", error);
 
@@ -311,6 +336,7 @@ app.post("/api/recipients", async (req, res) => {
         });
     }
 });
+
 app.post("/api/view-access", async (req, res) => {
     try {
         const { viewCode, keyword } = req.body;
@@ -350,8 +376,13 @@ app.post("/api/view-access", async (req, res) => {
 
         const recipient = rows[0];
 
-        // MVP版ではkeyword_hashに合言葉をそのまま保存しています
-        if (recipient.keyword_hash !== keyword) {
+        // ハッシュ化された合言葉と入力された合言葉を照合
+        const isKeywordCorrect = await bcrypt.compare(
+            keyword,
+            recipient.keyword_hash
+        );
+
+        if (!isKeywordCorrect) {
             return res.status(401).json({
                 success: false,
                 message: "閲覧コードまたは合言葉が違います"
@@ -546,9 +577,27 @@ app.post(
         }
     }
 );
+
 app.delete("/api/recipients/:id", async (req, res) => {
     try {
+        // ログインユーザーのIDを取得
+        const userId = req.session.userId;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "ログインしてください"
+            });
+        }
+
         const recipientId = Number(req.params.id);
+
+        if (!Number.isInteger(recipientId) || recipientId <= 0) {
+            return res.status(400).json({
+                success: false,
+                message: "相手IDが正しくありません"
+            });
+        }
 
         const [result] = await pool.execute(
             `
@@ -556,10 +605,7 @@ app.delete("/api/recipients/:id", async (req, res) => {
             WHERE id = ?
               AND user_id = ?
             `,
-            [
-                recipientId,
-                userId
-            ]
+            [recipientId, userId]
         );
 
         if (result.affectedRows === 0) {
@@ -575,16 +621,15 @@ app.delete("/api/recipients/:id", async (req, res) => {
         });
 
     } catch (error) {
-
         console.error("削除エラー:", error);
 
         res.status(500).json({
             success: false,
             message: "削除に失敗しました"
         });
-
     }
 });
+
 app.post("/api/register", async (req, res) => {
     try {
         const {
