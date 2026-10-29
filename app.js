@@ -78,11 +78,7 @@ app.use(
     })
 );
 app.get("/", (req, res) => {
-    if (req.session.demoAccess) {
-        return res.redirect("/auth/index.html");
-    }
-
-    return res.redirect("/demo.html");
+    return res.redirect("/index.html");
 });
 
 // publicフォルダ内のHTML・CSS・JS・画像を公開

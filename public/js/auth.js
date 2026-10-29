@@ -1,18 +1,5 @@
 async function checkDemoAccess() {
-    try {
-        const response = await fetch("/api/demo-access");
-
-        if (!response.ok) {
-            location.href = "/demo.html";
-            return false;
-        }
-
-        return true;
-    } catch (error) {
-        console.error("デモアクセス確認エラー:", error);
-        location.href = "/demo.html";
-        return false;
-    }
+    return true;
 }
 
 async function checkLogin() {
